@@ -3,6 +3,7 @@ import { SLIDES } from './constants.tsx';
 import { Slide } from './sections/Service';
 import { Footer } from './components/footer.tsx';
 import { Hero } from './sections/Hero.tsx';
+import { ContactSection } from './sections/ContactSection.tsx';
 
 export default function App() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -112,10 +113,8 @@ export default function App() {
         </div>
       </div>
 
-      {/* Outro Spacer */}
-      <div className="h-[100vh] flex items-center justify-center bg-gray-100">
-        <p className="text-gray-500">End of section</p>
-      </div>
+      {/* Contact Section */}
+      <ContactSection />
     </main>
   );
 }
