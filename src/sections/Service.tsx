@@ -9,63 +9,130 @@ interface SlideProps {
 export const Slide: React.FC<SlideProps> = ({ data, isActive }) => {
     return (
         <article
-            className={`absolute inset-0 pb-[90px] lg:pb-[150px] flex flex-col justify-end transition-opacity duration-500 h-full w-full px-[clamp(1rem,4vw,2.5rem)] ${isActive ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
+            className={`absolute inset-0 flex transition-opacity duration-700 h-full w-full overflow-hidden ${isActive ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
                 }`}
+            style={{ background: '#F9F7F2' }}
         >
-            {/* Background Media - Behind everything */}
-            {data.type === 'image' ? (
-                <picture className="absolute inset-0 z-0 select-none pointer-events-none">
-                    {data.srcset && <source srcSet={data.srcset} sizes="100vw" />}
-                    <img
-                        className="w-full h-full object-cover object-center"
-                        alt={data.label}
-                        src={data.src}
-                        loading="lazy"
+            {/* Left Side - Content */}
+            <div
+                className="relative z-10 w-full lg:w-1/2 flex flex-col justify-center px-8 lg:px-16 xl:px-24 py-20"
+                style={{ background: '#F9F7F2' }}
+            >
+                {/* Category Label */}
+                <div className="mb-6">
+                    <span
+                        style={{
+                            fontFamily: 'Montserrat, sans-serif',
+                            fontSize: '12px',
+                            fontWeight: 600,
+                            letterSpacing: '3px',
+                            textTransform: 'uppercase',
+                            color: '#D4AF37',
+                        }}
+                    >
+                        {data.label}
+                    </span>
+                    {/* Horizontal Line */}
+                    <div
+                        className="mt-4"
+                        style={{
+                            width: '40px',
+                            height: '3px',
+                            background: '#3C3633',
+                        }}
                     />
-                </picture>
-            ) : (
-                <video
-                    muted
-                    playsInline
-                    autoPlay
-                    loop
-                    className="absolute inset-0 z-0 w-full h-full object-cover object-center pointer-events-none"
-                >
-                    <source src={data.src} type="video/mp4" />
-                </video>
-            )}
+                </div>
 
-            {/* Content Header - On top of gradient */}
-            <header className="relative z-10 flex flex-col gap-3">
-                <h2 className="text-[32px] sm:text-[36px] lg:text-[72px] lg:w-[15ch] text-balance tracking-tight leading-[.95] font-semibold text-white">
-                    {data.title}
+                {/* Large Serif Headline */}
+                <h2
+                    className="mb-8"
+                    style={{
+                        fontFamily: 'Cormorant Garamond, serif',
+                        fontSize: 'clamp(42px, 6vw, 72px)',
+                        fontWeight: 500,
+                        fontStyle: 'italic',
+                        color: '#3C3633',
+                        lineHeight: 1.1,
+                        letterSpacing: '-1px',
+                    }}
+                >
+                    {data.headline}
                 </h2>
-                <p className="max-w-lg text-pretty text-white/90 text-base lg:text-lg">
+
+                {/* Description */}
+                <p
+                    className="max-w-md mb-10"
+                    style={{
+                        fontFamily: 'Montserrat, sans-serif',
+                        fontSize: '15px',
+                        fontWeight: 400,
+                        color: '#7A746E',
+                        lineHeight: 1.7,
+                    }}
+                >
                     {data.description}
                 </p>
-            </header>
 
-            {/* Special Case: Small floating video for slides with smallVideo */}
-            {data.smallVideo && (
-                <a
-                    href="#"
-                    className="hidden lg:block absolute z-20 bg-white rounded-lg overflow-hidden group cursor-pointer hover:scale-105 transition-transform duration-300"
-                    style={{ right: 'clamp(1rem,4vw,2.5rem)', top: 'clamp(1rem,4vw,2.5rem)' }}
+                {/* CTA Button */}
+                <button
+                    className="self-start px-8 py-4 transition-all duration-300 hover:bg-[#3C3633] hover:text-white group"
+                    style={{
+                        fontFamily: 'Montserrat, sans-serif',
+                        fontSize: '11px',
+                        fontWeight: 600,
+                        letterSpacing: '2px',
+                        textTransform: 'uppercase',
+                        color: '#3C3633',
+                        background: 'transparent',
+                        border: '1px solid #3C3633',
+                    }}
                 >
+                    {data.buttonText || 'View More'}
+                </button>
+            </div>
+
+            {/* Right Side - Background Image */}
+            <div className="hidden lg:block absolute top-0 right-0 w-1/2 h-full">
+                {/* Gradient overlay for smooth blend */}
+                <div
+                    className="absolute inset-0 z-10 pointer-events-none"
+                    style={{
+                        background: 'linear-gradient(to right, #F9F7F2 0%, transparent 30%)',
+                    }}
+                />
+
+                {data.type === 'image' ? (
+                    <picture className="absolute inset-0 z-0 select-none pointer-events-none">
+                        {data.srcset && <source srcSet={data.srcset} sizes="50vw" />}
+                        <img
+                            className="w-full h-full object-cover object-center"
+                            alt={data.label}
+                            src={data.src}
+                            loading="lazy"
+                            style={{ opacity: 0.6 }}
+                        />
+                    </picture>
+                ) : (
                     <video
                         muted
                         playsInline
                         autoPlay
                         loop
-                        className="h-[220px] w-[200px] object-cover object-center pointer-events-none"
+                        className="absolute inset-0 z-0 w-full h-full object-cover object-center pointer-events-none"
+                        style={{ opacity: 0.6 }}
                     >
-                        <source src={data.smallVideo} type="video/mp4" />
+                        <source src={data.src} type="video/mp4" />
                     </video>
-                    <span className="block p-3.5 text-[12px] leading-none text-[#0a0a0a] text-center font-medium bg-white">
-                        View more
-                    </span>
-                </a>
-            )}
+                )}
+            </div>
+
+            {/* Mobile Background */}
+            <div
+                className="lg:hidden absolute inset-0 z-0 pointer-events-none"
+                style={{
+                    background: 'linear-gradient(to bottom, #F9F7F2 60%, rgba(249, 247, 242, 0.8) 100%)',
+                }}
+            />
         </article>
     );
 };

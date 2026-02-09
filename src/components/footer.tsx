@@ -1,10 +1,10 @@
 import React from 'react';
-import { type SlideData } from '../types';
+import type { SlideData } from '../types';
 
 interface FooterProps {
     slides: SlideData[];
     currentSlideIndex: number;
-    slideProgress: number; // 0 to 1 for current slide
+    slideProgress: number;
     onNavigate: (index: number) => void;
 }
 
@@ -16,57 +16,89 @@ export const Footer: React.FC<FooterProps> = ({
 }) => {
     return (
         <footer
-            className="relative z-10 flex gap-2.5 lg:gap-5 w-full text-white"
-            style={{ padding: 'clamp(1rem,4vw,2.5rem)', paddingBottom: 'clamp(1rem,4vw,2.5rem)' }}
+            className="relative z-10 flex gap-2.5 lg:gap-5 w-full"
+            style={{
+                padding: 'clamp(1rem,4vw,2.5rem)',
+                paddingBottom: 'clamp(1rem,4vw,2.5rem)',
+                background: '#F9F7F2',
+            }}
         >
             {slides.map((slide, index) => {
-                // Calculate the width of the progress line for this button
-                let progressWidth = '0%';
-                if (index < currentSlideIndex) {
-                    progressWidth = '100%';
-                } else if (index === currentSlideIndex) {
-                    progressWidth = `${slideProgress * 100}%`;
-                }
+                const isActive = index === currentSlideIndex;
+                const isPast = index < currentSlideIndex;
+                const progressWidth = isActive ? `${slideProgress * 100}%` : (isPast ? '100%' : '0%');
 
                 return (
                     <button
                         key={slide.id}
                         onClick={() => onNavigate(index)}
-                        className="relative flex-1 text-left border-t-2 pt-4 lg:pt-6 border-white/20 leading-none group outline-none cursor-pointer"
+                        className="relative flex-1 text-left pt-4 lg:pt-6 leading-none group outline-none cursor-pointer"
+                        style={{ borderTop: '2px solid rgba(212, 175, 55, 0.3)' }}
                     >
-                        {/* The active progress line overlay */}
+                        {/* Progress line */}
                         <div
-                            className="absolute left-0 h-[2px] bg-white pointer-events-none"
+                            className="absolute left-0 h-[2px] pointer-events-none"
                             style={{
                                 width: progressWidth,
                                 top: '-2px',
-                                transition: 'width 75ms linear'
+                                transition: 'width 75ms linear',
+                                background: '#D4AF37',
                             }}
                         />
-
-                        {/* Label - visible on desktop, hidden on mobile */}
+                        {/* Label - desktop */}
                         <div className="hidden lg:block">
-                            <span aria-hidden="true" className="font-mono text-sm mr-1 opacity-60">
-                                0{index + 1}.
+                            <span
+                                className="block mb-1"
+                                style={{
+                                    color: isActive ? '#D4AF37' : 'rgba(60, 54, 51, 0.4)',
+                                    fontFamily: 'Montserrat, sans-serif',
+                                    fontSize: '12px',
+                                    fontWeight: 500,
+                                }}
+                            >
+                                0{index + 1}
                             </span>
-                            <span className="text-sm font-medium">
+                            <span
+                                className="block transition-colors duration-300"
+                                style={{
+                                    color: isActive ? '#3C3633' : 'rgba(60, 54, 51, 0.5)',
+                                    fontFamily: 'Montserrat, sans-serif',
+                                    fontSize: '13px',
+                                    fontWeight: 500,
+                                    textTransform: 'uppercase',
+                                    letterSpacing: '1px',
+                                }}
+                            >
                                 {slide.label}
                             </span>
                         </div>
+                        {/* Number - mobile */}
+                        <span
+                            className="block lg:hidden"
+                            style={{
+                                color: isActive ? '#D4AF37' : 'rgba(60, 54, 51, 0.4)',
+                                fontFamily: 'Montserrat, sans-serif',
+                                fontSize: '12px',
+                                fontWeight: 500,
+                            }}
+                        >
+                            0{index + 1}
+                        </span>
                     </button>
                 );
             })}
-
-            {/* Mobile active label indicator */}
+            {/* Mobile active label */}
             <div
-                aria-hidden="true"
-                className="absolute lg:hidden text-sm font-medium pointer-events-none"
+                className="lg:hidden absolute right-4 bottom-4"
                 style={{
-                    bottom: 'clamp(1rem,4vw,2.5rem)',
-                    left: 'clamp(1rem,4vw,2.5rem)'
+                    color: '#3C3633',
+                    fontFamily: 'Montserrat, sans-serif',
+                    fontSize: '13px',
+                    fontWeight: 500,
+                    textTransform: 'uppercase',
+                    letterSpacing: '1px',
                 }}
             >
-                <span className="opacity-60 font-mono mr-1">0{currentSlideIndex + 1}.</span>
                 {slides[currentSlideIndex]?.label}
             </div>
         </footer>

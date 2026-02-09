@@ -71,7 +71,7 @@ export default function App() {
   };
 
   return (
-    <main className="bg-white">
+    <main style={{ background: '#F9F7F2' }}>
       {/* Hero Section */}
       <Hero />
 
@@ -79,15 +79,15 @@ export default function App() {
       <div ref={containerRef} className="relative h-[500vh]">
 
         {/* Sticky Viewport - Sticks to top while scrolling through container */}
-        <div className="sticky top-0 h-screen overflow-hidden flex flex-col" style={{ backgroundColor: '#0a0a0a' }}>
+        <div className="sticky top-0 h-screen overflow-hidden flex flex-col" style={{ backgroundColor: '#F9F7F2' }}>
 
           {/* Main Content Area */}
           <section className="flex-1 relative w-full">
 
-            {/* Gradient Overlay for bottom text legibility */}
+            {/* Gradient Overlay for bottom text legibility - now for light theme */}
             <div
-              className="absolute inset-x-0 bottom-0 h-1/2 z-[5] pointer-events-none"
-              style={{ background: 'linear-gradient(to top, rgba(0,0,0,0.6), transparent)' }}
+              className="absolute inset-x-0 bottom-0 h-1/3 z-[5] pointer-events-none"
+              style={{ background: 'linear-gradient(to top, rgba(249, 247, 242, 0.8), transparent)' }}
             />
 
             {/* Slides */}
