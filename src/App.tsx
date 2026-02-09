@@ -7,11 +7,39 @@ import { ContactSection } from './sections/ContactSection.tsx';
 
 export default function App() {
   const containerRef = useRef<HTMLDivElement>(null);
+  const contactRef = useRef<HTMLDivElement>(null);
+  const heroRef = useRef<HTMLDivElement>(null);
   const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
   const [slideProgress, setSlideProgress] = useState(0);
+  const [contactHeight, setContactHeight] = useState(0);
+
+  // ResizeObserver for Contact Section height
+  useEffect(() => {
+    if (!contactRef.current) return;
+
+    const resizeObserver = new ResizeObserver((entries) => {
+      for (const entry of entries) {
+        setContactHeight(entry.contentRect.height);
+      }
+    });
+
+    resizeObserver.observe(contactRef.current);
+
+    return () => resizeObserver.disconnect();
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
+      // Logic for Hero Visibility: Hide Hero when Main covers it (scrolled > 100vh)
+      // This ensures Hero doesn't block Contact section at the bottom
+      if (heroRef.current) {
+        if (window.scrollY > window.innerHeight) {
+          heroRef.current.style.visibility = 'hidden';
+        } else {
+          heroRef.current.style.visibility = 'visible';
+        }
+      }
+
       if (!containerRef.current) return;
 
       const container = containerRef.current;
@@ -71,50 +99,78 @@ export default function App() {
   };
 
   return (
-    <main style={{ background: '#F9F7F2' }}>
-      {/* Hero Section */}
-      <Hero />
+    <div className="relative min-h-screen">
+      {/* 
+        Parallax Layering:
+        1. Hero: Fixed at Top (z-1). Covers Contact at start. Hidden after scroll.
+        2. Contact: Fixed at Bottom (z-0). Revealed when Main lifts up.
+        3. Main: Relative (z-10). Starts at 100vh (marginTop). Scrolls over everything.
+      */}
 
-      {/* The Scroll Container - 500vh height to allow scrolling time */}
-      <div ref={containerRef} className="relative h-[500vh]">
-
-        {/* Sticky Viewport - Sticks to top while scrolling through container */}
-        <div className="sticky top-0 h-screen overflow-hidden flex flex-col" style={{ backgroundColor: '#F9F7F2' }}>
-
-          {/* Main Content Area */}
-          <section className="flex-1 relative w-full">
-
-            {/* Gradient Overlay for bottom text legibility - now for light theme */}
-            <div
-              className="absolute inset-x-0 bottom-0 h-1/3 z-[5] pointer-events-none"
-              style={{ background: 'linear-gradient(to top, rgba(249, 247, 242, 0.8), transparent)' }}
-            />
-
-            {/* Slides */}
-            <div className="relative w-full h-full">
-              {SLIDES.map((slide, index) => (
-                <Slide
-                  key={slide.id}
-                  data={slide}
-                  isActive={index === currentSlideIndex}
-                />
-              ))}
-            </div>
-          </section>
-
-          {/* Footer Navigation - Always at bottom of sticky container */}
-          <Footer
-            slides={SLIDES}
-            currentSlideIndex={currentSlideIndex}
-            slideProgress={slideProgress}
-            onNavigate={handleNavigate}
-          />
-
-        </div>
+      {/* Hero Section Container - Fixed */}
+      <div
+        ref={heroRef}
+        className="fixed top-0 left-0 w-full h-screen z-[1]"
+      >
+        <Hero />
       </div>
 
-      {/* Contact Section */}
-      <ContactSection />
-    </main>
+      {/* Main Content (Slides) */}
+      <main
+        className="relative z-10 w-full shadow-2xl"
+        style={{
+          background: '#F9F7F2',
+          marginTop: '100vh',
+          marginBottom: `${contactHeight}px`
+        }}
+      >
+        {/* The Scroll Container - 500vh height to allow scrolling time */}
+        <div ref={containerRef} className="relative h-[500vh]">
+
+          {/* Sticky Viewport - Sticks to top while scrolling through container */}
+          <div className="sticky top-0 h-screen overflow-hidden flex flex-col" style={{ backgroundColor: '#F9F7F2' }}>
+
+            {/* Main Content Area */}
+            <section className="flex-1 relative w-full">
+
+              {/* Gradient Overlay for bottom text legibility - now for light theme */}
+              <div
+                className="absolute inset-x-0 bottom-0 h-1/3 z-[5] pointer-events-none"
+                style={{ background: 'linear-gradient(to top, rgba(249, 247, 242, 0.8), transparent)' }}
+              />
+
+              {/* Slides */}
+              <div className="relative w-full h-full">
+                {SLIDES.map((slide, index) => (
+                  <Slide
+                    key={slide.id}
+                    data={slide}
+                    isActive={index === currentSlideIndex}
+                  />
+                ))}
+              </div>
+            </section>
+
+            {/* Footer Navigation - Always at bottom of sticky container */}
+            <Footer
+              slides={SLIDES}
+              currentSlideIndex={currentSlideIndex}
+              slideProgress={slideProgress}
+              onNavigate={handleNavigate}
+            />
+
+          </div>
+        </div>
+      </main>
+
+      {/* Contact Section - Fixed at bottom, revealed by scroll */}
+      <div
+        ref={contactRef}
+        className="fixed bottom-0 left-0 w-full z-0"
+        style={{ height: 'auto' }}
+      >
+        <ContactSection />
+      </div>
+    </div>
   );
 }

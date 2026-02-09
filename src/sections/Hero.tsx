@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
-import { Diamond, Gem, Heart, Sparkles, Star, Crown } from 'lucide-react';
+import { Heart, Package, Star, Circle, Leaf, Gem, Square, Sparkle } from 'lucide-react';
 
 // Diamond shape components - different cuts inspired by Pinterest video
 const DiamondRound = ({ className = '' }: { className?: string }) => (
@@ -132,28 +132,29 @@ export const Hero = () => {
                 delay: 0.5,
             });
 
-            // Continuous rotation of the orbit (diamonds around the ring)
+            // Continuous rotation of the orbit (icons around the ring)
             gsap.to(orbitRef.current, {
                 rotation: 360,
-                duration: 18,
+                duration: 30,
                 ease: 'none',
                 repeat: -1,
             });
 
-            // Animate orbiting diamonds entrance
+            // Animate orbiting icons entrance
             gsap.from('.orbit-diamond', {
                 scale: 0,
                 opacity: 0,
                 duration: 0.6,
-                stagger: 0.12,
+                stagger: 0.1,
                 ease: 'back.out(1.5)',
                 delay: 1,
             });
 
-            // Center diamond pulse
-            gsap.to(centerDiamondRef.current, {
-                scale: 1.08,
-                duration: 2.5,
+            // Golden glow pulse animation
+            gsap.to('.golden-glow', {
+                scale: 1.2,
+                opacity: 0.8,
+                duration: 2,
                 ease: 'sine.inOut',
                 repeat: -1,
                 yoyo: true,
@@ -161,40 +162,21 @@ export const Hero = () => {
 
         }, containerRef);
 
-        // Cycle the center diamond type
-        const diamondInterval = setInterval(() => {
-            // Animate out
-            gsap.to(centerDiamondRef.current, {
-                scale: 0.6,
-                opacity: 0,
-                y: 30,
-                duration: 0.4,
-                ease: 'power2.in',
-                onComplete: () => {
-                    setCurrentDiamondIndex(prev => (prev + 1) % diamondTypes.length);
-                    // Animate in
-                    gsap.fromTo(centerDiamondRef.current,
-                        { scale: 1.4, opacity: 0, y: -40 },
-                        { scale: 1, opacity: 1, y: 0, duration: 0.6, ease: 'back.out(1.5)' }
-                    );
-                }
-            });
-        }, 2500);
-
         return () => {
             ctx.revert();
-            clearInterval(diamondInterval);
         };
     }, []);
 
-    // Positions for small orbiting icons with Lucide components
+    // 8 Positions for orbiting icons matching the reference image
     const orbitPositions = [
-        { angle: -60, size: 50, Icon: Diamond },
-        { angle: 0, size: 55, Icon: Gem },
-        { angle: 60, size: 48, Icon: Heart },
-        { angle: 120, size: 52, Icon: Sparkles },
-        { angle: 180, size: 45, Icon: Star },
-        { angle: 240, size: 50, Icon: Crown },
+        { angle: -90, size: 44, Icon: Heart },      // Top - Heart
+        { angle: -45, size: 44, Icon: Package },    // Top right - Package/Box
+        { angle: 0, size: 44, Icon: Star },         // Right - Star
+        { angle: 45, size: 44, Icon: Circle },      // Bottom right - Ring/Circle
+        { angle: 90, size: 44, Icon: Leaf },        // Bottom - Leaf
+        { angle: 135, size: 44, Icon: Gem },        // Bottom left - Gem
+        { angle: 180, size: 44, Icon: Square },     // Left - Square
+        { angle: 225, size: 44, Icon: Sparkle },    // Top left - Sparkle
     ];
     const orbitRadius = 155; // Match the ring radius so icons orbit ON the ring
 
@@ -215,6 +197,19 @@ export const Hero = () => {
                         ref={contentRef}
                         className="text-left order-2 lg:order-1"
                     >
+                        {/* Carpe Diam Logo */}
+                        <div
+                            className="mb-12"
+                            style={{
+                                fontFamily: 'Cormorant Garamond, serif',
+                                fontSize: '24px',
+                                fontWeight: 500,
+                                color: '#3C3633',
+                                letterSpacing: '1px',
+                            }}
+                        >
+                            Carpe Diam
+                        </div>
                         {/* Jewelry Ecosystem Badge */}
                         {/* <div
                             className="inline-flex items-center gap-2 px-4 py-2 rounded-full mb-6"
@@ -464,39 +459,55 @@ export const Hero = () => {
                                 />
                             </svg>
 
+                            {/* Golden Glow Orb at Top */}
+                            <div
+                                className="golden-glow absolute"
+                                style={{
+                                    top: '-20px',
+                                    left: '50%',
+                                    transform: 'translateX(-50%)',
+                                    width: '60px',
+                                    height: '60px',
+                                    background: 'radial-gradient(circle, rgba(212,175,55,0.8) 0%, rgba(245,230,163,0.6) 30%, rgba(212,175,55,0.2) 60%, transparent 80%)',
+                                    borderRadius: '50%',
+                                    filter: 'blur(8px)',
+                                    zIndex: 30,
+                                }}
+                            />
+
                             {/* Jewelry Ecosystem Text Inside Circle */}
-                            {/* <div
+                            <div
                                 className="absolute flex flex-col items-center justify-center text-center"
                                 style={{
-                                    width: '240px',
+                                    width: '200px',
                                     zIndex: 20,
                                 }}
                             >
                                 <span
                                     style={{
                                         fontFamily: 'Cormorant Garamond, serif',
-                                        fontSize: '32px',
-                                        fontWeight: 600,
+                                        fontSize: '26px',
+                                        fontWeight: 500,
                                         color: '#3C3633',
-                                        letterSpacing: '3px',
+                                        letterSpacing: '1px',
                                         lineHeight: 1.3,
                                     }}
                                 >
-                                    JEWELRY
+                                    Jewelry
                                 </span>
                                 <span
                                     style={{
                                         fontFamily: 'Cormorant Garamond, serif',
-                                        fontSize: '32px',
-                                        fontWeight: 600,
-                                        color: '#D4AF37',
-                                        letterSpacing: '3px',
+                                        fontSize: '26px',
+                                        fontWeight: 500,
+                                        color: '#3C3633',
+                                        letterSpacing: '1px',
                                         lineHeight: 1.3,
                                     }}
                                 >
-                                    ECOSYSTEM
+                                    Ecosystem
                                 </span>
-                            </div> */}
+                            </div>
                         </div>
 
                         {/* Orbiting Diamonds (rotating around the ring) */}
@@ -582,25 +593,25 @@ export const Hero = () => {
                         </div> */}
 
                         {/* Jewelry Ecosystem Badge */}
-                        <div
+                        {/* <div
                             className=" z-20"
                             style={{
                                 top: '5%',
                                 right: '10%',
                             }}
-                        >
-                            <div
+                        > */}
+                        {/* <div
                                 className="inline-flex items-center gap-2 px-4 py-2 rounded-full"
                             // style={{
                             //     background: 'linear-gradient(135deg, rgba(212, 175, 55, 0.2) 0%, rgba(212, 175, 55, 0.1) 100%)',
                             //     border: '1px solid rgba(212, 175, 55, 0.4)',
                             //     backdropFilter: 'blur(8px)',
                             // }}
-                            >
-                                {/* <svg className="w-4 h-4" style={{ color: '#D4AF37' }} fill="currentColor" viewBox="0 0 24 24">
+                            > */}
+                        {/* <svg className="w-4 h-4" style={{ color: '#D4AF37' }} fill="currentColor" viewBox="0 0 24 24">
                                     <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
                                 </svg> */}
-                                <span
+                        {/* <span
                                     style={{
                                         color: '#D4AF37',
                                         fontFamily: 'Cormorant Garamond, serif',
@@ -614,7 +625,7 @@ export const Hero = () => {
                                     Jewelry<br /> Ecosystem
                                 </span>
                             </div>
-                        </div>
+                        </div> */}
 
                         {/* Floating Service Icons around the animation */}
                         {/* Top Left - Diamond Icon */}
