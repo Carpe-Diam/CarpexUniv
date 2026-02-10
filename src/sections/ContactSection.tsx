@@ -1,73 +1,10 @@
-import { useEffect, useRef, useState } from 'react';
-import gsap from 'gsap';
+import { useState } from 'react';
+import { Mail, Phone, MapPin, Instagram, Linkedin } from 'lucide-react';
 
 export const ContactSection = () => {
-    const sectionRef = useRef<HTMLDivElement>(null);
-    const orbitRef = useRef<HTMLDivElement>(null);
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [isSuccess, setIsSuccess] = useState(false);
     const [isError, setIsError] = useState(false);
-
-    useEffect(() => {
-        const ctx = gsap.context(() => {
-            // Animate orbit rings
-            gsap.from('.orbit-ring', {
-                scale: 0,
-                opacity: 0,
-                duration: 1,
-                stagger: 0.15,
-                ease: 'power2.out',
-            });
-
-            // Animate center logo
-            gsap.from('.center-logo', {
-                scale: 0,
-                duration: 0.8,
-                delay: 0.5,
-                ease: 'back.out(1.7)',
-            });
-
-            // Animate floating dots
-            gsap.from('.orbit-dot', {
-                scale: 0,
-                opacity: 0,
-                duration: 0.5,
-                stagger: 0.1,
-                delay: 0.8,
-                ease: 'back.out(1.4)',
-            });
-
-            // Continuous rotation for orbit dots (Faster)
-            gsap.to('.orbit-container', {
-                rotation: 360,
-                duration: 40,
-                repeat: -1,
-                ease: 'none',
-            });
-
-            // Counter-rotate the dots so they stay upright
-            gsap.to('.orbit-dot', {
-                rotation: -360,
-                duration: 40,
-                repeat: -1,
-                ease: 'none',
-            });
-
-            // Also rotate the inner rings for more dynamism
-            gsap.to('.orbit-ring', {
-                rotation: 360,
-                duration: 50,
-                stagger: {
-                    each: 0.1,
-                    from: "end"
-                },
-                repeat: -1,
-                ease: 'none'
-            });
-        }, sectionRef);
-
-        return () => ctx.revert();
-    }, []);
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -92,278 +29,152 @@ export const ContactSection = () => {
         }
     };
 
-    // Positions for the orbital dots (in degrees around the circle)
-    const dotPositions = [30, 90, 150, 210, 270, 330];
-
     return (
         <section
-            ref={sectionRef}
             id="contact"
-            className="relative w-full h-[100dvh] flex gap-12 items-center justify-center"
+            className="w-full relative"
             style={{
-                background: '#F2EEE5',
-                padding: 'clamp(20px, 3vw, 30px) 0',
+                background: '#F2EEE5', // Beige background
+                padding: 'clamp(60px, 8vw, 100px) 0',
             }}
         >
-            <div className="relative z-10 max-w-7xl px-4 sm:px-6 lg:px-8 pt-10 ">
-                {/* Section Header */}
-                <div className="text-center mb-8">
-                    <h2
-                        style={{
-                            color: '#3C3633',
-                            fontFamily: 'Cormorant Garamond, serif',
-                            fontSize: 'clamp(28px, 4vw, 40px)',
-                            fontWeight: 500,
-                        }}
-                    >
-                        Let's Get Started
-                    </h2>
-                    <p
-                        className="max-w-2xl mx-auto mt-2"
-                        style={{
-                            color: '#7A746E',
-                            fontFamily: 'Montserrat, sans-serif',
-                            fontSize: '15px',
-                            fontWeight: 300,
-                        }}
-                    >
-                        Ready to transform your jewelry business? Get in touch with us today.
-                    </p>
-                </div>
+            <div className="max-w-7xl mx-auto px-6 sm:px-12 lg:px-20">
+                <div className="grid lg:grid-cols-2 gap-16 lg:gap-24 items-start">
 
-                <div className="grid lg:grid-cols-2 gap-12 lg:gap-12 items-center">
-                    {/* Left Side - Animated Orbital Component */}
-                    <div ref={orbitRef} className="relative flex items-center justify-center">
-                        <div className="relative w-[320px] h-[320px] sm:w-[400px] sm:h-[400px]">
-                            {/* Outer orbit ring */}
-                            <div
-                                className="orbit-ring absolute inset-0 rounded-full"
-                                style={{ border: '1px solid #D4AF37' }}
-                            />
-
-                            {/* Middle orbit ring */}
-                            <div
-                                className="orbit-ring absolute rounded-full"
+                    {/* LEFT COLUMN: Contact Information */}
+                    <div className="space-y-12">
+                        {/* Heading */}
+                        <div className="space-y-4">
+                            <h2
                                 style={{
-                                    inset: '15%',
-                                    border: '1px solid #D4AF37',
-                                    opacity: 0.6,
-                                }}
-                            />
-
-                            {/* Inner gradient circle */}
-                            <div
-                                className="orbit-ring absolute rounded-full"
-                                style={{
-                                    inset: '30%',
-                                    background: 'linear-gradient(180deg, rgba(212, 175, 55, 0.15) 0%, rgba(212, 175, 55, 0.05) 100%)',
-                                }}
-                            />
-
-                            {/* Center logo container */}
-                            <div
-                                className="center-logo absolute rounded-full flex items-center justify-center"
-                                style={{
-                                    inset: '35%',
-                                    background: '#F9F7F2',
-                                    boxShadow: '0 8px 40px rgba(60, 54, 51, 0.1)',
+                                    fontFamily: 'Cormorant Garamond, serif',
+                                    fontWeight: 400,
+                                    fontSize: 'clamp(40px, 4vw, 56px)',
+                                    color: '#0F172A', // Dark Blue/Black
+                                    lineHeight: 1.1,
                                 }}
                             >
-                                {/* Company Name */}
-                                <span
-                                    style={{
-                                        fontFamily: 'Cormorant Garamond, serif',
-                                        fontSize: 'clamp(14px, 3vw, 18px)',
-                                        fontWeight: 600,
-                                        color: '#3C3633',
-                                        textAlign: 'center',
-                                        letterSpacing: '1px',
-                                    }}
-                                >
-                                    CARPE<br />DIAM
+                                Contact<br />Information
+                            </h2>
+                        </div>
+
+                        {/* Details List */}
+                        <div className="space-y-6">
+                            {/* Email */}
+                            <a href="mailto:hello@carpediam.com" className="flex items-center gap-4 group">
+                                <Mail className="w-6 h-6 text-[#D4AF37] flex-shrink-0" />
+                                <span className="font-sans text-[#334155] text-lg font-light group-hover:text-[#D4AF37] transition-colors">
+                                    hello@carpediam.com
+                                </span>
+                            </a>
+
+                            {/* Phone */}
+                            <a href="tel:+12125550192" className="flex items-center gap-4 group">
+                                <Phone className="w-6 h-6 text-[#D4AF37] flex-shrink-0" />
+                                <span className="font-sans text-[#334155] text-lg font-light group-hover:text-[#D4AF37] transition-colors">
+                                    +1 (212) 555-0192
+                                </span>
+                            </a>
+
+                            {/* Address */}
+                            <div className="flex items-start gap-4">
+                                <MapPin className="w-6 h-6 text-[#D4AF37] flex-shrink-0 mt-1" />
+                                <span className="font-sans text-[#334155] text-lg font-light leading-relaxed">
+                                    123 Luxury Lane, Suite 401,<br />
+                                    New York, NY 10013
                                 </span>
                             </div>
+                        </div>
 
-                            {/* Rotating orbit container with dots */}
-                            <div className="orbit-container absolute inset-0">
-                                {dotPositions.map((angle, index) => {
-                                    const radius = 50;
-                                    const x = 50 + radius * Math.cos((angle - 90) * (Math.PI / 180));
-                                    const y = 50 + radius * Math.sin((angle - 90) * (Math.PI / 180));
-
-                                    return (
-                                        <div
-                                            key={index}
-                                            className="orbit-dot absolute w-10 h-10 sm:w-12 sm:h-12 rounded-full flex items-center justify-center"
-                                            style={{
-                                                left: `${x}%`,
-                                                top: `${y}%`,
-                                                transform: 'translate(-50%, -50%)',
-                                                background: '#F9F7F2',
-                                                border: '1px solid #D4AF37',
-                                                boxShadow: '0 4px 16px rgba(60, 54, 51, 0.08)',
-                                            }}
-                                        >
-                                            <div
-                                                className="w-3 h-3 rounded-full"
-                                                style={{ background: '#D4AF37' }}
-                                            />
-                                        </div>
-                                    );
-                                })}
-                            </div>
+                        {/* Social Icons */}
+                        <div className="flex items-center gap-6 pt-4">
+                            <a href="#" className="text-[#0F172A] hover:text-[#D4AF37] transition-colors">
+                                <Instagram className="w-8 h-8" strokeWidth={1.5} />
+                            </a>
+                            <a href="#" className="text-[#0F172A] hover:text-[#D4AF37] transition-colors">
+                                <Linkedin className="w-8 h-8" strokeWidth={1.5} />
+                            </a>
                         </div>
                     </div>
 
-                    {/* Right Side - Contact Form */}
-                    <div
-                        className="p-6 sm:p-8"
-                        style={{
-                            background: '#F9F7F2',
-                            boxShadow: '0 4px 30px rgba(60, 54, 51, 0.08)',
-                            borderRadius: '0', // Sharp, no border-radius
-                        }}
-                    >
-                        <form id="contact-form" className="space-y-6" onSubmit={handleSubmit}>
-                            <div>
-                                <label
-                                    className="block mb-2"
-                                    style={{
-                                        color: '#3C3633',
-                                        fontFamily: 'Montserrat, sans-serif',
-                                        fontSize: '13px',
-                                        fontWeight: 500,
-                                        textTransform: 'uppercase',
-                                        letterSpacing: '1px',
-                                    }}
-                                >
-                                    Name
-                                </label>
+                    {/* RIGHT COLUMN: Contact Form */}
+                    <div className="w-full">
+                        <h2
+                            className="mb-10"
+                            style={{
+                                fontFamily: 'Cormorant Garamond, serif',
+                                fontWeight: 400,
+                                fontSize: 'clamp(40px, 4vw, 56px)',
+                                color: '#0F172A', // Dark Blue/Black
+                            }}
+                        >
+                            Get in Touch
+                        </h2>
+
+                        <form onSubmit={handleSubmit} className="space-y-6">
+                            {/* Name Input */}
+                            <div className="relative">
                                 <input
                                     type="text"
                                     name="name"
                                     required
-                                    className="w-full p-3 outline-none transition-all duration-200"
-                                    style={{
-                                        border: '1px solid #D4AF37',
-                                        borderRadius: '0',
-                                        background: '#F9F7F2',
-                                        color: '#3C3633',
-                                        fontFamily: 'Montserrat, sans-serif',
-                                    }}
-                                    placeholder="Your name"
+                                    placeholder="Name"
+                                    className="w-full p-4 bg-transparent border border-[#D4AF37] focus:outline-none focus:ring-1 focus:ring-[#D4AF37] transition-all placeholder:text-[#64748B] font-sans"
+                                    style={{ borderRadius: 0 }}
                                 />
                             </div>
 
-                            <div>
-                                <label
-                                    className="block mb-2"
-                                    style={{
-                                        color: '#3C3633',
-                                        fontFamily: 'Montserrat, sans-serif',
-                                        fontSize: '13px',
-                                        fontWeight: 500,
-                                        textTransform: 'uppercase',
-                                        letterSpacing: '1px',
-                                    }}
-                                >
-                                    Email
-                                </label>
+                            {/* Email Input */}
+                            <div className="relative">
                                 <input
                                     type="email"
                                     name="email"
                                     required
-                                    className="w-full p-3 outline-none transition-all duration-200"
-                                    style={{
-                                        border: '1px solid #D4AF37',
-                                        borderRadius: '0',
-                                        background: '#F9F7F2',
-                                        color: '#3C3633',
-                                        fontFamily: 'Montserrat, sans-serif',
-                                    }}
-                                    placeholder="your@email.com"
+                                    placeholder="Email Address"
+                                    className="w-full p-4 bg-transparent border border-[#D4AF37] focus:outline-none focus:ring-1 focus:ring-[#D4AF37] transition-all placeholder:text-[#64748B] font-sans"
+                                    style={{ borderRadius: 0 }}
                                 />
                             </div>
 
-                            <div>
-                                <label
-                                    className="block mb-2"
-                                    style={{
-                                        color: '#3C3633',
-                                        fontFamily: 'Montserrat, sans-serif',
-                                        fontSize: '13px',
-                                        fontWeight: 500,
-                                        textTransform: 'uppercase',
-                                        letterSpacing: '1px',
-                                    }}
-                                >
-                                    Message
-                                </label>
+                            {/* Message Textarea */}
+                            <div className="relative">
                                 <textarea
                                     name="message"
                                     required
-                                    rows={4}
-                                    className="w-full p-3 outline-none transition-all duration-200 resize-none"
-                                    style={{
-                                        border: '1px solid #D4AF37',
-                                        borderRadius: '0',
-                                        background: '#F9F7F2',
-                                        color: '#3C3633',
-                                        fontFamily: 'Montserrat, sans-serif',
-                                    }}
-                                    placeholder="Tell us about your project..."
+                                    rows={5}
+                                    placeholder="Message"
+                                    className="w-full p-4 bg-transparent border border-[#D4AF37] focus:outline-none focus:ring-1 focus:ring-[#D4AF37] transition-all placeholder:text-[#64748B] font-sans resize-none"
+                                    style={{ borderRadius: 0 }}
                                 />
                             </div>
 
+                            {/* Submit Button */}
                             <button
                                 type="submit"
-                                id="submit-btn"
                                 disabled={isSubmitting}
-                                className="w-full py-3 px-6 font-medium transition-all duration-200 disabled:opacity-60 disabled:cursor-not-allowed"
+                                className="w-full py-4 text-white font-bold tracking-widest uppercase text-sm hover:opacity-90 transition-opacity disabled:opacity-50"
                                 style={{
-                                    background: '#D4AF37',
-                                    color: '#F9F7F2',
-                                    borderRadius: '0',
+                                    backgroundColor: '#B89628', // Darker gold/mustard for button
                                     fontFamily: 'Montserrat, sans-serif',
-                                    fontSize: '13px',
-                                    fontWeight: 500,
-                                    textTransform: 'uppercase',
-                                    letterSpacing: '1px',
                                 }}
                             >
                                 {isSubmitting ? 'Sending...' : 'Send Message'}
                             </button>
+
+                            {/* Status Messages */}
+                            {isSuccess && (
+                                <div className="p-4 bg-green-50 text-green-800 text-center font-sans text-sm">
+                                    Message sent successfully!
+                                </div>
+                            )}
+                            {isError && (
+                                <div className="p-4 bg-red-50 text-red-800 text-center font-sans text-sm">
+                                    Something went wrong. Please try again.
+                                </div>
+                            )}
                         </form>
-
-                        {/* Success Message */}
-                        {isSuccess && (
-                            <div
-                                id="success-msg"
-                                className="mt-4 p-3 text-center"
-                                style={{
-                                    background: '#E8F5E9',
-                                    color: '#2E7D32',
-                                    fontFamily: 'Montserrat, sans-serif',
-                                }}
-                            >
-                                Message sent successfully!
-                            </div>
-                        )}
-
-                        {/* Error Message */}
-                        {isError && (
-                            <div
-                                className="mt-4 p-3 text-center"
-                                style={{
-                                    background: '#FFEBEE',
-                                    color: '#C62828',
-                                    fontFamily: 'Montserrat, sans-serif',
-                                }}
-                            >
-                                Something went wrong. Please try again.
-                            </div>
-                        )}
                     </div>
+
                 </div>
             </div>
         </section>

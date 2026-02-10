@@ -117,7 +117,7 @@ export default function App() {
 
       {/* Main Content (Slides) */}
       <main
-        className="relative z-10 w-full shadow-2xl"
+        className="relative z-10 w-full"
         style={{
           background: '#F9F7F2',
           marginTop: '100vh',

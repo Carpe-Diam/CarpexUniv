@@ -116,7 +116,7 @@ export const Hero = () => {
         >
             {/* Top Left Logo */}
             <div className="absolute top-8 left-8 z-20">
-                <span className="font-serif text-2xl text-[#3C3633]">Carpe Diam</span>
+                <img src="/cd-logo.svg" alt="Carpe Diam" className="h-10 w-auto" />
             </div>
 
             {/* Concentric Rings & Icons */}
@@ -244,10 +244,11 @@ export const Hero = () => {
                 </p>
 
                 <button
+                    onClick={() => window.scrollTo({ top: window.innerHeight, behavior: 'smooth' })}
                     className="bg-[#1e1b4b] text-white px-8 py-3 rounded-md font-sans font-medium uppercase tracking-wide
-                               hover:bg-[#312e81] transition-colors duration-300 shadow-xl"
+                               hover:bg-[#312e81] transition-colors duration-300 shadow-xl cursor-pointer"
                 >
-                    Get Started
+                    Explore More
                 </button>
             </div>
 
