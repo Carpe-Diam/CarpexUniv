@@ -99,13 +99,13 @@ export const ContactSection = () => {
         <section
             ref={sectionRef}
             id="contact"
-            className="relative w-full"
+            className="relative w-full h-[100dvh] flex gap-12 items-center justify-center"
             style={{
                 background: '#F2EEE5',
                 padding: 'clamp(20px, 3vw, 30px) 0',
             }}
         >
-            <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-10">
+            <div className="relative z-10 max-w-7xl px-4 sm:px-6 lg:px-8 pt-10 ">
                 {/* Section Header */}
                 <div className="text-center mb-8">
                     <h2
@@ -131,7 +131,7 @@ export const ContactSection = () => {
                     </p>
                 </div>
 
-                <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+                <div className="grid lg:grid-cols-2 gap-12 lg:gap-12 items-center">
                     {/* Left Side - Animated Orbital Component */}
                     <div ref={orbitRef} className="relative flex items-center justify-center">
                         <div className="relative w-[320px] h-[320px] sm:w-[400px] sm:h-[400px]">
