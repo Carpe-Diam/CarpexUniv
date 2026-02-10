@@ -37,10 +37,10 @@ export const ContactSection = () => {
                 ease: 'back.out(1.4)',
             });
 
-            // Continuous rotation for orbit dots
+            // Continuous rotation for orbit dots (Faster)
             gsap.to('.orbit-container', {
                 rotation: 360,
-                duration: 60,
+                duration: 40,
                 repeat: -1,
                 ease: 'none',
             });
@@ -48,9 +48,21 @@ export const ContactSection = () => {
             // Counter-rotate the dots so they stay upright
             gsap.to('.orbit-dot', {
                 rotation: -360,
-                duration: 60,
+                duration: 40,
                 repeat: -1,
                 ease: 'none',
+            });
+
+            // Also rotate the inner rings for more dynamism
+            gsap.to('.orbit-ring', {
+                rotation: 360,
+                duration: 50,
+                stagger: {
+                    each: 0.1,
+                    from: "end"
+                },
+                repeat: -1,
+                ease: 'none'
             });
         }, sectionRef);
 
@@ -90,28 +102,28 @@ export const ContactSection = () => {
             className="relative w-full"
             style={{
                 background: '#F2EEE5',
-                padding: 'clamp(40px, 5vw, 60px) 0',
+                padding: 'clamp(20px, 3vw, 30px) 0',
             }}
         >
-            <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-50">
+            <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-10">
                 {/* Section Header */}
-                <div className="text-center mb-16">
+                <div className="text-center mb-8">
                     <h2
                         style={{
                             color: '#3C3633',
                             fontFamily: 'Cormorant Garamond, serif',
-                            fontSize: 'clamp(32px, 5vw, 48px)',
+                            fontSize: 'clamp(28px, 4vw, 40px)',
                             fontWeight: 500,
                         }}
                     >
                         Let's Get Started
                     </h2>
                     <p
-                        className="max-w-2xl mx-auto mt-4"
+                        className="max-w-2xl mx-auto mt-2"
                         style={{
                             color: '#7A746E',
                             fontFamily: 'Montserrat, sans-serif',
-                            fontSize: '16px',
+                            fontSize: '15px',
                             fontWeight: 300,
                         }}
                     >
@@ -119,7 +131,7 @@ export const ContactSection = () => {
                     </p>
                 </div>
 
-                <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+                <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
                     {/* Left Side - Animated Orbital Component */}
                     <div ref={orbitRef} className="relative flex items-center justify-center">
                         <div className="relative w-[320px] h-[320px] sm:w-[400px] sm:h-[400px]">
@@ -205,7 +217,7 @@ export const ContactSection = () => {
 
                     {/* Right Side - Contact Form */}
                     <div
-                        className="p-8 sm:p-10"
+                        className="p-6 sm:p-8"
                         style={{
                             background: '#F9F7F2',
                             boxShadow: '0 4px 30px rgba(60, 54, 51, 0.08)',
