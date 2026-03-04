@@ -64,7 +64,7 @@ export const ContactSection = () => {
                             <a href="mailto:hello@carpediam.com" className="flex items-center gap-4 group">
                                 <Mail className="w-6 h-6 text-[#D4AF37] flex-shrink-0" />
                                 <span className="font-sans text-[#334155] text-lg font-light group-hover:text-[#D4AF37] transition-colors">
-                                    hello@carpediam.com
+                                    hello@carpediam.in
                                 </span>
                             </a>
 
@@ -72,7 +72,7 @@ export const ContactSection = () => {
                             <a href="tel:+12125550192" className="flex items-center gap-4 group">
                                 <Phone className="w-6 h-6 text-[#D4AF37] flex-shrink-0" />
                                 <span className="font-sans text-[#334155] text-lg font-light group-hover:text-[#D4AF37] transition-colors">
-                                    +1 (212) 555-0192
+                                    Rushabh doshi - 9930900465
                                 </span>
                             </a>
 
@@ -80,8 +80,11 @@ export const ContactSection = () => {
                             <div className="flex items-start gap-4">
                                 <MapPin className="w-6 h-6 text-[#D4AF37] flex-shrink-0 mt-1" />
                                 <span className="font-sans text-[#334155] text-lg font-light leading-relaxed">
-                                    123 Luxury Lane, Suite 401,<br />
-                                    New York, NY 10013
+                                    Carpe diam Jewels pvt ltd.<br />
+                                    802/8th floor. 93 east , <br />
+                                    opp. Nand bhuvan industrial estate, above burger king, <br />
+                                    mahakali caves road Andheri east <br />
+                                    Maharashtra, Mumbai:400093
                                 </span>
                             </div>
                         </div>

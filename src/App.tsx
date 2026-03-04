@@ -4,6 +4,7 @@ import { Slide } from './sections/Service';
 import { Footer } from './components/footer.tsx';
 import { Hero } from './sections/Hero.tsx';
 import { ContactSection } from './sections/ContactSection.tsx';
+import { Navigation } from './components/Navigation.tsx';
 
 export default function App() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -11,7 +12,7 @@ export default function App() {
   const heroRef = useRef<HTMLDivElement>(null);
   const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
   const [slideProgress, setSlideProgress] = useState(0);
-  const [contactHeight, setContactHeight] = useState(0);
+  const [contactHeight, setContactHeight] = useState(800);
 
   // ResizeObserver for Contact Section height
   useEffect(() => {
@@ -107,6 +108,9 @@ export default function App() {
         3. Main: Relative (z-10). Starts at 100vh (marginTop). Scrolls over everything.
       */}
 
+      {/* Global Navigation - Fixed Z-Infinite */}
+      <Navigation />
+
       {/* Hero Section Container - Fixed */}
       <div
         ref={heroRef}
@@ -152,12 +156,17 @@ export default function App() {
             </section>
 
             {/* Footer Navigation - Always at bottom of sticky container */}
-            <Footer
-              slides={SLIDES}
-              currentSlideIndex={currentSlideIndex}
-              slideProgress={slideProgress}
-              onNavigate={handleNavigate}
-            />
+            <div
+              className="transition-opacity duration-500 ease-in-out"
+              style={{ opacity: (currentSlideIndex === SLIDES.length - 1 && slideProgress > 0.95) ? 0 : 1 }}
+            >
+              <Footer
+                slides={SLIDES}
+                currentSlideIndex={currentSlideIndex}
+                slideProgress={slideProgress}
+                onNavigate={handleNavigate}
+              />
+            </div>
 
           </div>
         </div>
