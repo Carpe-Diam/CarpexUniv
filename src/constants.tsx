@@ -1,4 +1,3 @@
-import React from 'react';
 import { type SlideData } from './types';
 
 export const SLIDES: SlideData[] = [
