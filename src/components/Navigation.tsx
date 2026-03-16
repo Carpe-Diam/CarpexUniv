@@ -30,7 +30,7 @@ export const Navigation = () => {
             {/* Top Right Menu Trigger */}
             <button
                 onClick={toggleMenu}
-                className={`fixed top-8 right-8 md:top-12 md:right-12 z-[100] text-[#2a2725] hover:text-[#D4AF37] transition-all duration-300 p-2 cursor-pointer ${isMenuOpen ? 'opacity-0 invisible' : 'opacity-100 visible'}`}
+                className={`absolute top-8 right-8 md:top-12 md:right-12 z-[100] text-[#2a2725] hover:text-[#D4AF37] transition-all duration-300 p-2 cursor-pointer pointer-events-auto ${isMenuOpen ? 'opacity-0 invisible' : 'opacity-100 visible'}`}
                 aria-label="Open Menu"
             >
                 <div className="flex flex-col gap-[5px] items-end group">
@@ -41,14 +41,14 @@ export const Navigation = () => {
 
             {/* Menu Backdrop */}
             <div
-                className={`fixed inset-0 bg-[#2a2725]/40 backdrop-blur-sm z-[90] transition-all duration-500 ${isMenuOpen ? 'opacity-100 visible' : 'opacity-0 invisible pointer-events-none'
+                className={`fixed inset-0 bg-[#2a2725]/40 backdrop-blur-sm z-[90] pointer-events-auto transition-all duration-500 ${isMenuOpen ? 'opacity-100 visible' : 'opacity-0 invisible pointer-events-none'
                     }`}
                 onClick={() => setIsMenuOpen(false)}
             />
 
             {/* Right Side Tray */}
             <div
-                className={`fixed top-0 right-0 h-full w-full sm:w-[400px] bg-[#EEEDE9] z-[100] shadow-[auto] transform transition-transform duration-500 ease-[cubic-bezier(0.77,0,0.175,1)] flex flex-col pt-32 px-12 sm:px-16 border-l border-[#e2ddd8] ${isMenuOpen ? 'translate-x-0' : 'translate-x-full'
+                className={`absolute top-0 right-0 h-full w-full sm:w-[400px] bg-[#EEEDE9] z-[100] pointer-events-auto shadow-[auto] transform transition-transform duration-500 ease-[cubic-bezier(0.77,0,0.175,1)] flex flex-col pt-32 px-12 sm:px-16 border-l border-[#e2ddd8] ${isMenuOpen ? 'translate-x-0' : 'translate-x-full'
                     }`}
             >
                 {/* Close Button Inside Tray */}
