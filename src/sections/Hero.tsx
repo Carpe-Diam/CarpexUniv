@@ -1,108 +1,42 @@
 import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
-import {
-    Gem,
-    Circle, // Using Ring generic icon if available, or Circle
-    Search, // For "Source" loop
-    TrendingUp, // For "Growth" chart
-    User, // For "Human-led"
-    Link, // For "Connection"
-    Diamond,
-    MousePointer2
-} from 'lucide-react';
 
 export const Hero = () => {
     const containerRef = useRef<HTMLDivElement>(null);
     const contentRef = useRef<HTMLDivElement>(null);
 
-    // Icon data structure for placement
-    // Ring indices: 1 = inner, 2 = middle, 3 = outer
-    const icons = [
-        // Inner Ring - No icons
-
-
-        // Middle Ring
-        { Icon: Diamond, ring: 2, angle: 135, color: '#1e3a8a', bg: '#F9F7F2', borderColor: '#1e3a8a' }, // Blue diamond
-        { Icon: Search, ring: 2, angle: 330, color: '#D4AF37', bg: '#F9F7F2' },
-        { Icon: Circle, ring: 2, angle: 240, color: '#D4AF37', bg: '#F9F7F2' },
-        { Icon: User, ring: 2, angle: 45, color: '#D4AF37', bg: '#F9F7F2' },
-
-        // Outer Ring - More populated
-        { Icon: Gem, ring: 3, angle: 45, color: '#D4AF37', bg: '#F9F7F2' },
-        { Icon: Circle, ring: 3, angle: 100, color: '#D4AF37', bg: '#F9F7F2' },
-        { Icon: TrendingUp, ring: 3, angle: 190, color: '#D4AF37', bg: '#F9F7F2' },
-        { Icon: User, ring: 3, angle: 300, color: '#D4AF37', bg: '#F9F7F2' },
-        { Icon: MousePointer2, ring: 3, angle: 250, color: '#D4AF37', bg: '#F9F7F2', size: 16 },
-        { Icon: Diamond, ring: 3, angle: 10, color: '#D4AF37', bg: '#F9F7F2' },
-        { Icon: Link, ring: 3, angle: 150, color: '#D4AF37', bg: '#F9F7F2' },
-        { Icon: Search, ring: 3, angle: 340, color: '#D4AF37', bg: '#F9F7F2' },
-    ];
-
-    // Helper to calculate position for CIRCULAR orbits
-    // NOTE: This now calculates position RELATIVE TO THE CONTAINER CENTER (0,0)
-    // allowing it to work inside the centered .orbit-group
-    const getPosition = (ringIndex: number, angle: number) => {
-        // Radii for rings (circles)
-        // 1=Small, 2=Medium, 3=Large
-        const diameters = [0, 450, 680, 950];
-
-        const radius = diameters[ringIndex] / 2;
-
-        const rad = (angle * Math.PI) / 180;
-        const x = Math.cos(rad) * radius;
-        const y = Math.sin(rad) * radius;
-        return { x, y };
-    };
-
     useEffect(() => {
         const ctx = gsap.context(() => {
-            // 1. Initial Fade In
-            gsap.from(containerRef.current, { opacity: 0, duration: 1 });
+            const tl = gsap.timeline();
 
-            // 2. Rings Expansion
-            gsap.from('.hero-ring', {
-                scale: 0.8,
-                opacity: 0,
-                duration: 1.5,
-                stagger: 0.2,
-                ease: "power2.out"
+            tl.from(containerRef.current, { opacity: 0, duration: 1.5, ease: 'power2.out' })
+              .from('.hero-element', {
+                  y: 30,
+                  opacity: 0,
+                  duration: 1.2,
+                  stagger: 0.1,
+                  ease: 'power3.out'
+              }, "-=1");
+
+            // Very subtle and slow floating animation for background elements
+            gsap.to('.hero-shape-1', {
+                y: '-20px',
+                x: '10px',
+                duration: 6,
+                repeat: -1,
+                yoyo: true,
+                ease: 'sine.inOut'
             });
 
-            // 3. Icons Pop In
-            gsap.from('.hero-icon', {
-                scale: 0,
-                opacity: 0,
-                duration: 0.8,
-                stagger: 0.1,
-                delay: 0.5,
-                ease: "back.out(1.7)"
+            gsap.to('.hero-shape-2', {
+                y: '15px',
+                x: '-15px',
+                duration: 8,
+                repeat: -1,
+                yoyo: true,
+                ease: 'sine.inOut',
+                delay: 1 // offset the animation
             });
-
-            // 4. Content Fade Up
-            gsap.from(contentRef.current, {
-                y: 30,
-                opacity: 0,
-                duration: 1,
-                delay: 0.8,
-                ease: "power2.out"
-            });
-
-            // 5. Continuous Rotation
-            // Rotate the entire orbit group (ring + icons)
-            // Ring 1 (slower)
-            gsap.to('.orbit-group-1', { rotation: 360, duration: 45, repeat: -1, ease: 'none' });
-            // Counter-rotate Ring 1 icons
-            gsap.to('.orbit-group-1 .hero-icon-inner', { rotation: -360, duration: 45, repeat: -1, ease: 'none' });
-
-            // Ring 2 (Counter-clockwise, medium)
-            gsap.to('.orbit-group-2', { rotation: -360, duration: 55, repeat: -1, ease: 'none' });
-            // Counter-rotate Ring 2 icons
-            gsap.to('.orbit-group-2 .hero-icon-inner', { rotation: 360, duration: 55, repeat: -1, ease: 'none' });
-
-            // Ring 3 (fastest or slowest? Let's go slowest for outer)
-            gsap.to('.orbit-group-3', { rotation: 360, duration: 65, repeat: -1, ease: 'none' });
-            // Counter-rotate Ring 3 icons
-            gsap.to('.orbit-group-3 .hero-icon-inner', { rotation: -360, duration: 65, repeat: -1, ease: 'none' });
 
         }, containerRef);
 
@@ -112,146 +46,88 @@ export const Hero = () => {
     return (
         <section
             ref={containerRef}
-            className="relative w-full h-screen overflow-hidden flex flex-col items-center justify-center bg-[#F9F7F2]"
+            className="relative w-full h-screen overflow-hidden flex flex-col justify-center bg-[#F9F7F2]"
         >
-            {/* Top Left Logo */}
-            <div className="absolute top-8 left-8 z-20">
-                <img src="/cd-logo.svg" alt="Carpe Diam" className="h-10 w-auto" />
+            {/* Minimalist Abstract Background Shapes (representing facets/jewelry and growth) */}
+            <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none opacity-60">
+                {/* Large soft gold sphere/glow representing value */}
+                <div className="hero-shape-1 absolute -top-[10%] -right-[5%] w-[800px] h-[800px] bg-gradient-radial from-[#EAE2CA] to-transparent rounded-full opacity-40 blur-[80px]" />
+                
+                {/* Sharp angled geometric shape hinting at a diamond cut / structure */}
+                <div className="hero-shape-2 absolute bottom-[10%] -left-[10%] w-[600px] h-[600px] bg-[#EEEDE9] rotate-[15deg] origin-bottom-left skew-x-[20deg] blur-[1px] opacity-70" style={{ clipPath: 'polygon(0 0, 100% 20%, 80% 100%, 0 80%)' }} />
             </div>
 
-            {/* Concentric Rings & Icons */}
-            <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-
-                {/* Ring 1 Group */}
-                <div className="orbit-group orbit-group-1 absolute inset-0 flex items-center justify-center pointer-events-none">
-                    <div className="hero-ring hero-ring-1 absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full border border-[#D4AF37]/40 w-[450px] h-[450px]" />
-                    {/* Icons for Ring 1 */}
-                    {icons.filter(i => i.ring === 1).map((item, index) => {
-                        const pos = getPosition(item.ring, item.angle);
-                        return (
-                            <div
-                                key={`r1-${index}`}
-                                className="hero-icon absolute z-10 left-1/2 top-1/2"
-                                style={{
-                                    transform: `translate(${pos.x}px, ${pos.y}px)`,
-                                }}
-                            >
-                                {/* Inner wrapper for counter-rotation */}
-                                <div className="hero-icon-inner flex items-center justify-center rounded-full shadow-lg"
-                                    style={{
-                                        width: '48px',
-                                        height: '48px',
-                                        backgroundColor: item.bg,
-                                        border: `1px solid ${item.borderColor || '#D4AF37/40'}`,
-                                        // Center the inner content relative to the wrapper's 0,0
-                                        transform: 'translate(-50%, -50%)'
-                                    }}
-                                >
-                                    <item.Icon size={20} color={item.color} strokeWidth={1.5} />
-                                </div>
-                            </div>
-                        );
-                    })}
-                </div>
-
-                {/* Ring 2 Group */}
-                <div className="orbit-group orbit-group-2 absolute inset-0 flex items-center justify-center pointer-events-none">
-                    <div className="hero-ring hero-ring-2 absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full border border-[#D4AF37]/40 w-[680px] h-[680px]" />
-                    {/* Icons for Ring 2 */}
-                    {icons.filter(i => i.ring === 2).map((item, index) => {
-                        const pos = getPosition(item.ring, item.angle);
-                        return (
-                            <div
-                                key={`r2-${index}`}
-                                className="hero-icon absolute z-10 left-1/2 top-1/2"
-                                style={{
-                                    transform: `translate(${pos.x}px, ${pos.y}px)`,
-                                }}
-                            >
-                                <div className="hero-icon-inner flex items-center justify-center rounded-full shadow-lg"
-                                    style={{
-                                        width: '48px',
-                                        height: '48px',
-                                        backgroundColor: item.bg,
-                                        border: `1px solid ${item.borderColor || '#D4AF37/40'}`,
-                                        transform: 'translate(-50%, -50%)'
-                                    }}
-                                >
-                                    <item.Icon size={20} color={item.color} strokeWidth={1.5} />
-                                    {/* Special case: Blue Diamond connection line */}
-                                    {item.Icon === Diamond && item.borderColor === '#1e3a8a' && (
-                                        <svg className="absolute w-[100px] h-[100px] pointer-events-none" style={{
-                                            top: '50%',
-                                            left: '50%',
-                                            transform: 'translate(-100%, -50%) rotate(0deg)',
-                                            overflow: 'visible'
-                                        }}>
-                                            {/* Commented out as per user request history, or keeping simple */}
-                                            {/* <line x1="0" y1="0" x2="60" y2="0" stroke="#3C3633" strokeWidth="1" strokeDasharray="4 2" />
-                                             <circle cx="60" cy="0" r="3" fill="#3C3633" /> */}
-                                        </svg>
-                                    )}
-                                </div>
-                            </div>
-                        );
-                    })}
-                </div>
-
-                {/* Ring 3 Group */}
-                <div className="orbit-group orbit-group-3 absolute inset-0 flex items-center justify-center pointer-events-none">
-                    <div className="hero-ring hero-ring-3 absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full border border-[#D4AF37]/40 w-[950px] h-[950px]" />
-                    {/* Icons for Ring 3 */}
-                    {icons.filter(i => i.ring === 3).map((item, index) => {
-                        const pos = getPosition(item.ring, item.angle);
-                        return (
-                            <div
-                                key={`r3-${index}`}
-                                className="hero-icon absolute z-10 left-1/2 top-1/2"
-                                style={{
-                                    transform: `translate(${pos.x}px, ${pos.y}px)`,
-                                }}
-                            >
-                                <div className="hero-icon-inner flex items-center justify-center rounded-full shadow-lg"
-                                    style={{
-                                        width: '48px',
-                                        height: '48px',
-                                        backgroundColor: item.bg,
-                                        border: `1px solid ${item.borderColor || '#D4AF37/40'}`,
-                                        transform: 'translate(-50%, -50%)'
-                                    }}
-                                >
-                                    <item.Icon size={20} color={item.color} strokeWidth={1.5} />
-                                </div>
-                            </div>
-                        );
-                    })}
-                </div>
-
-                {/* Golden Glow Effect Top Center */}
-                <div className="absolute -top-[100px] left-1/2 -translate-x-1/2 w-[300px] h-[300px] bg-[#D4AF37]/20 blur-[80px] rounded-full pointer-events-none" />
+            {/* Top Left Logo (Dark for light theme) */}
+            <div className="absolute top-8 left-8 md:top-12 md:left-12 z-20 hero-element">
+                <img src="/cd-logo.svg" alt="Carpe Diam" className="h-8 md:h-10 w-auto opacity-90" />
             </div>
 
-            {/* Center Content */}
-            <div ref={contentRef} className="relative z-10 text-center max-w-2xl px-4">
-                <h1 className="font-serif text-5xl md:text-7xl text-[#3C3633] leading-tight mb-4">
-                    Fine Jewelry,<br />
-                    <span className="italic font-normal">Simplified</span>
+            {/* Content Left-Aligned for Corporate/Consultancy Look */}
+            <div ref={contentRef} className="relative z-10 text-left max-w-5xl px-8 md:px-12 lg:px-24 xl:px-32 mt-12 w-full">
+                
+                {/* Sophisticated Consultancy Top Label */}
+                <div className="hero-element mb-8">
+                    <span className="text-[#8c857d] font-sans text-xs md:text-sm tracking-[0.2em] uppercase font-medium border-b border-[#D4AF37]/40 pb-2">
+                        Strategic Jewelry Operations
+                    </span>
+                </div>
+                
+                <h1 className="hero-element font-serif text-5xl md:text-6xl lg:text-7xl xl:text-8xl text-[#2a2725] leading-[1.1] mb-8 font-normal tracking-tight">
+                    Optimizing the business <br className="hidden md:block"/>
+                    of <span className="italic font-light text-[#1f1d1b]">fine jewelry.</span>
                 </h1>
 
-                <p className="text-[#7A746E] font-sans text-xl md:text-xl font-light mb-8 max-w-lg mx-auto leading-relaxed">
-                    Take your jewelry business to the next level
-                    with human-led digital solutions.
+                <p className="hero-element text-[#655f59] font-sans text-lg md:text-xl font-light mb-12 max-w-2xl leading-relaxed">
+                    We architect digital supply chains and custom catalogue solutions for modern jewelers, bridging legacy craftsmanship with scalable operational systems.
                 </p>
 
-                <button
-                    onClick={() => window.scrollTo({ top: window.innerHeight, behavior: 'smooth' })}
-                    className="bg-[#1e1b4b] text-white px-8 py-3 rounded-md font-sans font-medium uppercase tracking-wide
-                               hover:bg-[#312e81] transition-colors duration-300 shadow-xl cursor-pointer"
-                >
-                    Explore More
-                </button>
+                {/* Refined Corporate Actions */}
+                <div className="hero-element flex flex-col sm:flex-row items-center sm:items-start gap-5">
+                    <button
+                        onClick={() => window.scrollTo({ top: window.innerHeight, behavior: 'smooth' })}
+                        className="bg-[#2a2725] text-white px-8 py-4 rounded-none font-sans font-medium hover:bg-[#1f1d1b] transition-all duration-300 w-full sm:w-auto text-center"
+                    >
+                        Explore Our Systems
+                    </button>
+                    <button
+                        onClick={() => window.scrollTo({ top: window.innerHeight * 2, behavior: 'smooth' })}
+                        className="bg-transparent border border-[#d3cecb] text-[#2a2725] px-8 py-4 rounded-none font-sans font-medium hover:bg-[#EEEDE9] transition-all duration-300 w-full sm:w-auto text-center"
+                    >
+                        Book a Consultation
+                    </button>
+                </div>
+
+                {/* Trust/Metric Indicators (Consultancy Vibe) */}
+                <div className="hero-element mt-16 md:mt-24 flex flex-wrap gap-x-12 gap-y-6 pt-8 border-t border-[#e2ddd8]">
+                     <div>
+                        <p className="text-[#a59d95] text-xs uppercase tracking-wider font-semibold mb-1">Expertise</p>
+                        <p className="text-[#2a2725] text-sm md:text-base font-serif">Bespoke & Catalogue Supply</p>
+                     </div>
+                     <div>
+                        <p className="text-[#a59d95] text-xs uppercase tracking-wider font-semibold mb-1">Advantage</p>
+                        <p className="text-[#2a2725] text-sm md:text-base font-serif">End-to-End Digital Operations</p>
+                     </div>
+                </div>
             </div>
 
+            {/* Elegant minimal scroll indicator */}
+            <div className="absolute bottom-12 right-12 z-20 hidden md:flex flex-col items-center gap-4 cursor-pointer hero-element opacity-60 hover:opacity-100 transition-opacity"
+                 onClick={() => window.scrollTo({ top: window.innerHeight, behavior: 'smooth' })}>
+                <span className="text-[#2a2725] text-[10px] uppercase tracking-[0.2em] font-sans [writing-mode:vertical-rl]">
+                    Discover
+                </span>
+                <div className="w-[1px] h-12 bg-[#2a2725]/20 relative overflow-hidden">
+                    <div className="absolute top-0 left-0 w-full h-1/2 bg-[#2a2725] animate-[scrollDown_1.5s_ease-in-out_infinite]" />
+                </div>
+            </div>
+            
+            <style>{`
+                @keyframes scrollDown {
+                    0% { transform: translateY(-100%); opacity: 0; }
+                    50% { opacity: 1; }
+                    100% { transform: translateY(200%); opacity: 0; }
+                }
+            `}</style>
         </section>
     );
 };

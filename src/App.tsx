@@ -5,6 +5,7 @@ import { Footer } from './components/footer.tsx';
 import { Hero } from './sections/Hero.tsx';
 import { ContactSection } from './sections/ContactSection.tsx';
 import { Navigation } from './components/Navigation.tsx';
+import gsap from 'gsap';
 
 export default function App() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -29,18 +30,30 @@ export default function App() {
     return () => resizeObserver.disconnect();
   }, []);
 
+  // Soft Parallax effect for the hero when scrolling down
+  useEffect(() => {
+      const handleHeroParallax = () => {
+          if (!heroRef.current) return;
+          const scrollY = window.scrollY;
+          
+          if (scrollY <= window.innerHeight) {
+              // Move the hero down slightly as we scroll away, creating depth
+              gsap.set(heroRef.current, { 
+                  y: scrollY * 0.4,
+                  opacity: 1 - (scrollY / window.innerHeight),
+                  visibility: 'visible'
+              });
+          } else {
+              gsap.set(heroRef.current, { visibility: 'hidden' });
+          }
+      };
+
+      window.addEventListener('scroll', handleHeroParallax, { passive: true });
+      return () => window.removeEventListener('scroll', handleHeroParallax);
+  }, []);
+
   useEffect(() => {
     const handleScroll = () => {
-      // Logic for Hero Visibility: Hide Hero when Main covers it (scrolled > 100vh)
-      // This ensures Hero doesn't block Contact section at the bottom
-      if (heroRef.current) {
-        if (window.scrollY > window.innerHeight) {
-          heroRef.current.style.visibility = 'hidden';
-        } else {
-          heroRef.current.style.visibility = 'visible';
-        }
-      }
-
       if (!containerRef.current) return;
 
       const container = containerRef.current;
@@ -100,7 +113,7 @@ export default function App() {
   };
 
   return (
-    <div className="relative min-h-screen">
+    <div className="relative min-h-screen bg-[#F9F7F2] text-[#2a2725] selection:bg-[#D4AF37]/30">
       {/* 
         Parallax Layering:
         1. Hero: Fixed at Top (z-1). Covers Contact at start. Hidden after scroll.
@@ -108,20 +121,20 @@ export default function App() {
         3. Main: Relative (z-10). Starts at 100vh (marginTop). Scrolls over everything.
       */}
 
-      {/* Global Navigation - Fixed Z-Infinite */}
+      {/* Global Navigation - Fixed Z-[100] */}
       <Navigation />
 
       {/* Hero Section Container - Fixed */}
       <div
         ref={heroRef}
-        className="fixed top-0 left-0 w-full h-screen z-[1]"
+        className="fixed top-0 left-0 w-full h-screen z-[1] will-change-transform" /* Optimize for parallax */
       >
         <Hero />
       </div>
 
       {/* Main Content (Slides) */}
       <main
-        className="relative z-10 w-full"
+        className="relative z-10 w-full shadow-[0_-20px_40px_rgba(0,0,0,0.05)]" /* Soft shadow over hero */
         style={{
           background: '#F9F7F2',
           marginTop: '100vh',
@@ -137,10 +150,10 @@ export default function App() {
             {/* Main Content Area */}
             <section className="flex-1 relative w-full">
 
-              {/* Gradient Overlay for bottom text legibility - now for light theme */}
+              {/* Gradient Overlay for bottom text legibility */}
               <div
-                className="absolute inset-x-0 bottom-0 h-1/3 z-[5] pointer-events-none"
-                style={{ background: 'linear-gradient(to top, rgba(249, 247, 242, 0.8), transparent)' }}
+                className="absolute inset-x-0 bottom-0 h-[40vh] z-[5] pointer-events-none mix-blend-multiply opacity-5"
+                style={{ background: 'linear-gradient(to top, #8c857d, transparent)' }}
               />
 
               {/* Slides */}
@@ -157,8 +170,11 @@ export default function App() {
 
             {/* Footer Navigation - Always at bottom of sticky container */}
             <div
-              className="transition-opacity duration-500 ease-in-out"
-              style={{ opacity: (currentSlideIndex === SLIDES.length - 1 && slideProgress > 0.95) ? 0 : 1 }}
+              className="transition-all duration-700 ease-in-out"
+              style={{ 
+                  opacity: (currentSlideIndex === SLIDES.length - 1 && slideProgress > 0.95) ? 0 : 1,
+                  transform: (currentSlideIndex === SLIDES.length - 1 && slideProgress > 0.95) ? 'translateY(100%)' : 'translateY(0)' 
+              }}
             >
               <Footer
                 slides={SLIDES}

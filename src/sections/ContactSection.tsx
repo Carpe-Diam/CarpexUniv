@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Mail, Phone, MapPin, Instagram, Linkedin } from 'lucide-react';
+import { Mail, Phone, MapPin, Instagram, Linkedin, ArrowRight } from 'lucide-react';
 
 export const ContactSection = () => {
     const [isSubmitting, setIsSubmitting] = useState(false);
@@ -32,149 +32,159 @@ export const ContactSection = () => {
     return (
         <section
             id="contact"
-            className="w-full relative"
+            className="w-full relative bg-[#EEEDE9] border-t border-[#e2ddd8]"
             style={{
-                background: '#F2EEE5', // Beige background
-                padding: 'clamp(60px, 8vw, 100px) 0',
+                padding: 'clamp(80px, 10vw, 120px) 0',
             }}
         >
-            <div className="max-w-7xl mx-auto px-6 sm:px-12 lg:px-20">
-                <div className="grid lg:grid-cols-2 gap-16 lg:gap-24 items-start">
+            <div className="max-w-7xl mx-auto px-8 sm:px-12 lg:px-24">
+                <div className="grid lg:grid-cols-2 gap-16 lg:gap-32 items-start">
 
                     {/* LEFT COLUMN: Contact Information */}
-                    <div className="space-y-12">
+                    <div className="space-y-16">
                         {/* Heading */}
-                        <div className="space-y-4">
+                        <div className="space-y-6">
+                            <span className="text-[#8c857d] font-sans text-xs md:text-sm tracking-[0.2em] uppercase font-medium">
+                                Direct Inquiry
+                            </span>
                             <h2
                                 style={{
                                     fontFamily: 'Cormorant Garamond, serif',
                                     fontWeight: 400,
-                                    fontSize: 'clamp(40px, 4vw, 56px)',
-                                    color: '#0F172A', // Dark Blue/Black
-                                    lineHeight: 1.1,
+                                    fontSize: 'clamp(46px, 5vw, 64px)',
+                                    color: '#2a2725',
+                                    lineHeight: 1.05,
+                                    letterSpacing: '-0.02em',
                                 }}
                             >
-                                Contact<br />Information
+                                Initiate a <br className="hidden sm:block"/>
+                                conversation.
                             </h2>
+                            <p className="text-[#655f59] font-sans text-lg font-light max-w-sm leading-relaxed">
+                                Connect with our team to discuss customized supply chain solutions for your jewelry business.
+                            </p>
                         </div>
 
                         {/* Details List */}
-                        <div className="space-y-6">
+                        <div className="space-y-8 border-l border-[#D4AF37]/40 pl-6">
                             {/* Email */}
-                            <a href="mailto:hello@carpediam.com" className="flex items-center gap-4 group">
-                                <Mail className="w-6 h-6 text-[#D4AF37] flex-shrink-0" />
-                                <span className="font-sans text-[#334155] text-lg font-light group-hover:text-[#D4AF37] transition-colors">
+                            <a href="mailto:hello@carpediam.in" className="flex items-center gap-6 group">
+                                <Mail className="w-5 h-5 text-[#8c857d] group-hover:text-[#D4AF37] transition-colors stroke-[1.5]" />
+                                <span className="font-sans text-[#2a2725] text-base font-medium tracking-wide group-hover:text-[#D4AF37] transition-colors">
                                     hello@carpediam.in
                                 </span>
                             </a>
 
                             {/* Phone */}
-                            <a href="tel:+12125550192" className="flex items-center gap-4 group">
-                                <Phone className="w-6 h-6 text-[#D4AF37] flex-shrink-0" />
-                                <span className="font-sans text-[#334155] text-lg font-light group-hover:text-[#D4AF37] transition-colors">
-                                    Rushabh doshi - 9930900465
+                            <a href="tel:+919930900465" className="flex items-center gap-6 group">
+                                <Phone className="w-5 h-5 text-[#8c857d] group-hover:text-[#D4AF37] transition-colors stroke-[1.5]" />
+                                <span className="font-sans text-[#2a2725] text-base font-medium tracking-wide group-hover:text-[#D4AF37] transition-colors">
+                                    +91 99309 00465<br/>
+                                    <span className="text-[#8c857d] text-sm font-normal">Rushabh Doshi</span>
                                 </span>
                             </a>
 
                             {/* Address */}
-                            <div className="flex items-start gap-4">
-                                <MapPin className="w-6 h-6 text-[#D4AF37] flex-shrink-0 mt-1" />
-                                <span className="font-sans text-[#334155] text-lg font-light leading-relaxed">
-                                    Carpe diam Jewels pvt ltd.<br />
-                                    802/8th floor. 93 east , <br />
-                                    opp. Nand bhuvan industrial estate, above burger king, <br />
-                                    mahakali caves road Andheri east <br />
-                                    Maharashtra, Mumbai:400093
+                            <div className="flex items-start gap-6 pt-2">
+                                <MapPin className="w-5 h-5 text-[#8c857d] flex-shrink-0 mt-1 stroke-[1.5]" />
+                                <span className="font-sans text-[#655f59] text-sm font-light leading-relaxed max-w-[280px]">
+                                    <strong className="text-[#2a2725] font-medium block mb-1">Carpe Diam Jewels Pvt Ltd.</strong>
+                                    802/8th floor. 93 east, <br />
+                                    Opp. Nand Bhuvan Industrial Estate,<br />
+                                    Above Burger King, Mahakali Caves Road,<br />
+                                    Andheri East, Mumbai: 400093
                                 </span>
                             </div>
                         </div>
 
-                        {/* Social Icons */}
-                        <div className="flex items-center gap-6 pt-4">
-                            <a href="#" className="text-[#0F172A] hover:text-[#D4AF37] transition-colors">
-                                <Instagram className="w-8 h-8" strokeWidth={1.5} />
+                        {/* Social Icons - Clean & Minimal */}
+                        <div className="flex items-center gap-6 pt-8 border-t border-[#e2ddd8]">
+                            <span className="text-[#8c857d] font-sans text-xs tracking-[0.15em] uppercase">Connect</span>
+                            <div className="w-8 h-[1px] bg-[#e2ddd8]" />
+                            <a href="#" className="p-2 border border-[#e2ddd8] rounded-full text-[#655f59] hover:text-[#D4AF37] hover:border-[#D4AF37] transition-all bg-white/50">
+                                <Instagram className="w-4 h-4" strokeWidth={1.5} />
                             </a>
-                            <a href="#" className="text-[#0F172A] hover:text-[#D4AF37] transition-colors">
-                                <Linkedin className="w-8 h-8" strokeWidth={1.5} />
+                            <a href="#" className="p-2 border border-[#e2ddd8] rounded-full text-[#655f59] hover:text-[#D4AF37] hover:border-[#D4AF37] transition-all bg-white/50">
+                                <Linkedin className="w-4 h-4" strokeWidth={1.5} />
                             </a>
                         </div>
                     </div>
 
                     {/* RIGHT COLUMN: Contact Form */}
-                    <div className="w-full">
-                        <h2
-                            className="mb-10"
-                            style={{
-                                fontFamily: 'Cormorant Garamond, serif',
-                                fontWeight: 400,
-                                fontSize: 'clamp(40px, 4vw, 56px)',
-                                color: '#0F172A', // Dark Blue/Black
-                            }}
-                        >
-                            Get in Touch
-                        </h2>
+                    <div className="w-full bg-white p-10 shadow-sm border border-[#e2ddd8]">
+                        <div className="mb-10 flex items-center justify-between">
+                             <h3
+                                className="font-serif text-3xl text-[#2a2725] font-normal"
+                            >
+                                Project Inquiry
+                            </h3>
+                            <ArrowRight className="w-5 h-5 text-[#D4AF37] stroke-[1]" />
+                        </div>
+                       
+                        <form onSubmit={handleSubmit} className="space-y-8">
+                            {/* Input Group */}
+                            <div className="space-y-6">
+                                {/* Name Input */}
+                                <div className="relative border-b border-[#e2ddd8] group">
+                                    <input
+                                        type="text"
+                                        name="name"
+                                        required
+                                        placeholder="Full Name"
+                                        className="w-full py-4 bg-transparent focus:outline-none transition-all placeholder:text-[#a59d95] font-sans text-sm text-[#2a2725]"
+                                    />
+                                    <div className="absolute bottom-[-1px] left-0 w-0 h-[1px] bg-[#2a2725] transition-all duration-300 group-focus-within:w-full" />
+                                </div>
 
-                        <form onSubmit={handleSubmit} className="space-y-6">
-                            {/* Name Input */}
-                            <div className="relative">
-                                <input
-                                    type="text"
-                                    name="name"
-                                    required
-                                    placeholder="Name"
-                                    className="w-full p-4 bg-transparent border border-[#D4AF37] focus:outline-none focus:ring-1 focus:ring-[#D4AF37] transition-all placeholder:text-[#64748B] font-sans"
-                                    style={{ borderRadius: 0 }}
-                                />
-                            </div>
+                                {/* Email Input */}
+                                <div className="relative border-b border-[#e2ddd8] group">
+                                    <input
+                                        type="email"
+                                        name="email"
+                                        required
+                                        placeholder="Corporate Email"
+                                        className="w-full py-4 bg-transparent focus:outline-none transition-all placeholder:text-[#a59d95] font-sans text-sm text-[#2a2725]"
+                                    />
+                                    <div className="absolute bottom-[-1px] left-0 w-0 h-[1px] bg-[#2a2725] transition-all duration-300 group-focus-within:w-full" />
+                                </div>
 
-                            {/* Email Input */}
-                            <div className="relative">
-                                <input
-                                    type="email"
-                                    name="email"
-                                    required
-                                    placeholder="Email Address"
-                                    className="w-full p-4 bg-transparent border border-[#D4AF37] focus:outline-none focus:ring-1 focus:ring-[#D4AF37] transition-all placeholder:text-[#64748B] font-sans"
-                                    style={{ borderRadius: 0 }}
-                                />
-                            </div>
-
-                            {/* Message Textarea */}
-                            <div className="relative">
-                                <textarea
-                                    name="message"
-                                    required
-                                    rows={5}
-                                    placeholder="Message"
-                                    className="w-full p-4 bg-transparent border border-[#D4AF37] focus:outline-none focus:ring-1 focus:ring-[#D4AF37] transition-all placeholder:text-[#64748B] font-sans resize-none"
-                                    style={{ borderRadius: 0 }}
-                                />
+                                {/* Message Textarea */}
+                                <div className="relative border-b border-[#e2ddd8] group pt-2">
+                                    <textarea
+                                        name="message"
+                                        required
+                                        rows={4}
+                                        placeholder="Project Details & Volume Requirements"
+                                        className="w-full py-2 bg-transparent focus:outline-none transition-all placeholder:text-[#a59d95] font-sans text-sm text-[#2a2725] resize-none"
+                                    />
+                                    <div className="absolute bottom-[-1px] left-0 w-0 h-[1px] bg-[#2a2725] transition-all duration-300 group-focus-within:w-full" />
+                                </div>
                             </div>
 
                             {/* Submit Button */}
                             <button
                                 type="submit"
                                 disabled={isSubmitting}
-                                className="w-full py-4 text-white font-bold tracking-widest uppercase text-sm hover:opacity-90 transition-opacity disabled:opacity-50"
-                                style={{
-                                    backgroundColor: '#B89628', // Darker gold/mustard for button
-                                    fontFamily: 'Montserrat, sans-serif',
-                                }}
+                                className="w-full py-5 text-white bg-[#2a2725] font-medium tracking-[0.15em] uppercase text-xs hover:bg-[#1f1d1b] transition-colors disabled:opacity-50 mt-4 flex items-center justify-center gap-3"
+                                style={{ fontFamily: 'Montserrat, sans-serif' }}
                             >
-                                {isSubmitting ? 'Sending...' : 'Send Message'}
+                                {isSubmitting ? 'Transmitting...' : 'Submit Request'}
+                                {!isSubmitting && <ArrowRight className="w-4 h-4" />}
                             </button>
 
                             {/* Status Messages */}
-                            {isSuccess && (
-                                <div className="p-4 bg-green-50 text-green-800 text-center font-sans text-sm">
-                                    Message sent successfully!
-                                </div>
-                            )}
-                            {isError && (
-                                <div className="p-4 bg-red-50 text-red-800 text-center font-sans text-sm">
-                                    Something went wrong. Please try again.
-                                </div>
-                            )}
+                            <div className="h-10">
+                                {isSuccess && (
+                                    <div className="p-3 bg-[#EEEDE9] text-[#2a2725] text-center font-sans text-xs uppercase tracking-wider border border-[#e2ddd8]">
+                                        Inquiry received. We will be in touch.
+                                    </div>
+                                )}
+                                {isError && (
+                                    <div className="p-3 bg-red-50 text-red-800 text-center font-sans text-xs uppercase tracking-wider border border-red-100">
+                                        Transmission failed. Please use email.
+                                    </div>
+                                )}
+                            </div>
                         </form>
                     </div>
 

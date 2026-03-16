@@ -16,11 +16,13 @@ export const Footer: React.FC<FooterProps> = ({
 }) => {
     return (
         <footer
-            className="relative z-10 flex gap-2.5 lg:gap-5 w-full"
+            className="relative z-10 flex gap-2.5 w-full bg-[#F9F7F2]"
             style={{
+                background: '#F9F7F2',
+                // Muted border top for sophisticated definition
+                borderTop: '1px solid rgba(140, 133, 125, 0.1)',
                 padding: 'clamp(1rem,4vw,2.5rem)',
                 paddingBottom: 'clamp(1rem,4vw,2.5rem)',
-                background: '#F9F7F2',
             }}
         >
             {slides.map((slide, index) => {
@@ -32,71 +34,76 @@ export const Footer: React.FC<FooterProps> = ({
                     <button
                         key={slide.id}
                         onClick={() => onNavigate(index)}
-                        className="relative flex-1 text-left pt-4 lg:pt-6 leading-none group outline-none cursor-pointer"
-                        style={{ borderTop: '2px solid rgba(212, 175, 55, 0.3)' }}
+                        className="relative flex-1 text-left pt-6 pb-2 group outline-none cursor-pointer transition-colors duration-300"
+                        style={{ 
+                            // Static grey background line for the track
+                            backgroundColor: 'transparent',
+                        }}
                     >
-                        {/* Progress line */}
+                        {/* Static Track Line */}
                         <div
-                            className="absolute left-0 h-[2px] pointer-events-none"
+                            className="absolute top-0 left-0 w-full h-[1px] pointer-events-none"
                             style={{
-                                width: progressWidth,
-                                top: '-2px',
-                                transition: 'width 75ms linear',
-                                background: '#D4AF37',
+                                background: 'rgba(42, 39, 37, 0.1)' // #2a2725 at 10%
                             }}
                         />
-                        {/* Label - desktop */}
-                        <div className="hidden lg:block">
-                            <span
-                                className="block mb-1"
-                                style={{
-                                    color: isActive ? '#D4AF37' : 'rgba(60, 54, 51, 0.4)',
-                                    fontFamily: 'Montserrat, sans-serif',
-                                    fontSize: '12px',
-                                    fontWeight: 500,
-                                }}
-                            >
-                                0{index + 1}
-                            </span>
-                            <span
-                                className="block transition-colors duration-300"
-                                style={{
-                                    color: isActive ? '#3C3633' : 'rgba(60, 54, 51, 0.5)',
-                                    fontFamily: 'Montserrat, sans-serif',
-                                    fontSize: '13px',
-                                    fontWeight: 500,
-                                    textTransform: 'uppercase',
-                                    letterSpacing: '1px',
-                                }}
-                            >
-                                {slide.label}
-                            </span>
-                        </div>
-                        {/* Number - mobile */}
-                        <span
-                            className="block lg:hidden"
+
+                        {/* Animated Progress line */}
+                        <div
+                            className="absolute left-0 h-[1.5px] pointer-events-none shadow-[0_0_8px_rgba(212,175,55,0.4)]"
                             style={{
-                                color: isActive ? '#D4AF37' : 'rgba(60, 54, 51, 0.4)',
-                                fontFamily: 'Montserrat, sans-serif',
-                                fontSize: '12px',
-                                fontWeight: 500,
+                                width: progressWidth,
+                                top: '-0.25px',
+                                transition: 'width 75ms linear',
+                                background: '#D4AF37', // Gold 
                             }}
-                        >
-                            0{index + 1}
-                        </span>
+                        />
+
+                        {/* Container for alignment scaling */}
+                        <div className={`transition-all duration-300 ${isActive ? 'translate-y-0 opacity-100' : 'translate-y-1 opacity-60 hover:opacity-100'}`}>
+                            {/* Number - Desktop & Mobile */}
+                            <span
+                                className="block mb-2 font-serif italic"
+                                style={{
+                                    color: isActive ? '#2a2725' : '#8c857d',
+                                    fontSize: isActive ? '16px' : '14px',
+                                    transition: 'all 0.3s ease'
+                                }}
+                            >
+                                {String(index + 1).padStart(2, '0')}
+                            </span>
+                            
+                            {/* Label - desktop */}
+                            <div className="hidden lg:block overflow-hidden">
+                                <span
+                                    className="block transition-all duration-500 transform"
+                                    style={{
+                                        color: isActive ? '#2a2725' : '#8c857d',
+                                        fontFamily: 'Montserrat, sans-serif',
+                                        fontSize: isActive ? '13px' : '11px',
+                                        fontWeight: isActive ? 500 : 400,
+                                        textTransform: 'uppercase',
+                                        letterSpacing: '0.2em',
+                                    }}
+                                >
+                                    {slide.label}
+                                </span>
+                            </div>
+                        </div>
                     </button>
                 );
             })}
-            {/* Mobile active label */}
+            
+            {/* Mobile active label (Cleaned up) */}
             <div
-                className="lg:hidden absolute right-4 bottom-4"
+                className="lg:hidden absolute right-4 bottom-6 transition-all duration-300"
                 style={{
-                    color: '#3C3633',
+                    color: '#2a2725',
                     fontFamily: 'Montserrat, sans-serif',
-                    fontSize: '13px',
+                    fontSize: '11px',
                     fontWeight: 500,
                     textTransform: 'uppercase',
-                    letterSpacing: '1px',
+                    letterSpacing: '0.15em',
                 }}
             >
                 {slides[currentSlideIndex]?.label}
