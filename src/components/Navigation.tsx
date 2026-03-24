@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Menu, X } from 'lucide-react';
+import { X } from 'lucide-react';
 
 export const Navigation = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -61,22 +61,22 @@ export const Navigation = () => {
                 </button>
 
                 <div className="mb-16">
-                     <span className="text-[#8c857d] font-sans text-xs tracking-[0.2em] uppercase font-medium border-b border-[#e2ddd8] pb-2 inline-block">
+                    <span className="text-[#8c857d] font-sans text-xs tracking-[0.2em] uppercase font-medium border-b border-[#e2ddd8] pb-2 inline-block">
                         Navigation
                     </span>
                 </div>
 
                 <nav className="flex flex-col gap-8 items-start">
                     {[
-                        { name: 'Home', id: 'home' }, 
-                        { name: 'Services & Operations', id: 'services' }, 
+                        { name: 'Home', id: 'home' },
+                        { name: 'Services & Operations', id: 'services' },
                         { name: 'Direct Inquiry', id: 'contact' }
                     ].map((item, index) => (
                         <button
                             key={item.id}
                             onClick={() => handleNav(item.id)}
                             className="group relative font-serif text-3xl sm:text-4xl text-[#2a2725] hover:text-[#D4AF37] transition-colors duration-500 cursor-pointer text-left w-full overflow-hidden"
-                            style={{ 
+                            style={{
                                 transitionDelay: `${index * 50}ms`,
                                 opacity: isMenuOpen ? 1 : 0,
                                 transform: isMenuOpen ? 'translateY(0)' : 'translateY(20px)'
@@ -90,7 +90,7 @@ export const Navigation = () => {
                 </nav>
 
                 <div className="mt-auto pb-12 opacity-80"
-                      style={{ 
+                    style={{
                         transitionDelay: `300ms`,
                         opacity: isMenuOpen ? 1 : 0,
                         transform: isMenuOpen ? 'translateY(0)' : 'translateY(20px)',
