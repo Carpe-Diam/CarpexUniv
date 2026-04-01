@@ -147,7 +147,7 @@ export const Slide: React.FC<SlideProps> = ({ data, isActive }) => {
                         {data.srcset && <source srcSet={data.srcset} sizes="50vw" />}
                         <img
                             ref={imageRef}
-                            className="w-full h-full object-cover object-center transform -scale-x-100" // Flip if needed, or remove. Assuming Unsplash aesthetic fits standard.
+                            className="w-full h-full object-cover object-center" // Flip if needed, or remove. Assuming Unsplash aesthetic fits standard.
                             alt={data.label}
                             src={data.src}
                             loading="lazy"
