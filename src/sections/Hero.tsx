@@ -142,8 +142,8 @@ export const Hero = () => {
                 ))}
             </div> */}
 
-            {/* Content Left-Aligned */}
-            <div ref={contentRef} className="relative z-10 text-left max-w-5xl px-8 md:px-12 lg:px-24 xl:px-32 pt-24 md:pt-28 w-full">
+            {/* Centered Content */}
+            <div ref={contentRef} className="relative z-10 text-center max-w-5xl mx-auto px-8 md:px-12 lg:px-24 xl:px-32 pt-24 md:pt-28 w-full">
 
                 {/* Sophisticated Consultancy Top Label */}
                 <div className="hero-element mb-4 md:mb-6">
@@ -157,12 +157,12 @@ export const Hero = () => {
                     of <span className="italic font-light text-[#1f1d1b]">fine jewelry.</span>
                 </h1>
 
-                <p className="hero-element text-[#655f59] font-sans text-base md:text-lg font-light mb-10 max-w-2xl leading-relaxed">
+                <p className="hero-element text-[#655f59] font-sans text-base md:text-lg font-light mb-10 max-w-2xl mx-auto leading-relaxed">
                     We architect digital supply chains and custom catalogue solutions for modern jewelers, bridging legacy craftsmanship with scalable operational systems.
                 </p>
 
                 {/* Refined Corporate Actions */}
-                <div className="hero-element flex flex-col sm:flex-row items-center sm:items-start gap-5">
+                <div className="hero-element flex flex-col sm:flex-row items-center justify-center gap-5">
                     <button
                         onClick={() => window.scrollTo({ top: window.innerHeight, behavior: 'smooth' })}
                         className="bg-[#2a2725] text-white px-8 py-4 rounded-none font-sans font-medium hover:bg-[#1f1d1b] transition-all duration-300 w-full sm:w-auto text-center"
@@ -178,7 +178,7 @@ export const Hero = () => {
                 </div>
 
                 {/* Trust/Metric Indicators */}
-                <div className="hero-element mt-12 md:mt-20 flex flex-wrap gap-x-12 gap-y-4 pt-6 border-t border-[#e2ddd8]">
+                <div className="hero-element mt-12 md:mt-20 flex flex-wrap justify-center gap-x-12 gap-y-4 pt-6 border-t border-[#e2ddd8]">
                     <div>
                         <p className="text-[#a59d95] text-xs uppercase tracking-wider font-semibold mb-1">Ecosystem</p>
                         <p className="text-[#2a2725] text-sm md:text-base font-serif">End-to-End Digital Operations</p>

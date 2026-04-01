@@ -9,7 +9,7 @@ export const SLIDES: SlideData[] = [
     description: 'Curated collections alongside custom and bespoke capabilities — streamlined through modern, collaborative tools to make creativity predictable and scalable, while preserving the artistry behind every piece.',
     buttonText: 'View More',
     type: 'image',
-    src: '/design.png',
+    src: '/Design1.png',
   },
   {
     id: 'manufacture',
