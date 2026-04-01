@@ -152,8 +152,8 @@ export const Hero = () => {
                     </span>
                 </div>
 
-                <h1 className="hero-element font-serif text-5xl md:text-6xl lg:text-7xl xl:text-[5.5rem] text-[#2a2725] leading-[1.1] mb-6 md:mb-8 font-normal tracking-tight">
-                    Optimizing the business <br className="hidden md:block" />
+                <h1 className="hero-element font-serif text-4xl md:text-5xl lg:text-6xl xl:text-[5.5rem] text-[#2a2725] leading-[1.1] mb-6 md:mb-8 font-normal tracking-tight">
+                    Optimizing the business
                     of <span className="italic font-light text-[#1f1d1b]">fine jewelry.</span>
                 </h1>
 
