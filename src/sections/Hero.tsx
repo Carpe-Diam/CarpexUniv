@@ -31,7 +31,7 @@ export const Hero = () => {
         >
             {/* Top Left Logo */}
             <div className="absolute top-8 left-8 md:top-12 md:left-12 z-20 hero-element">
-                <img src="/cd-logo.svg" alt="Carpe Diam" className="h-6 sm:h-8 md:h-10 lg:h-12 w-auto opacity-90" />
+                <img src="/UD.png" alt="Carpe Diam" className="h-6 sm:h-8 md:h-10 lg:h-12 w-auto opacity-90" />
             </div>
 
 
@@ -46,9 +46,8 @@ export const Hero = () => {
                     </span>
                 </div>
 
-                <h1 className="hero-element font-serif text-4xl md:text-5xl lg:text-6xl xl:text-[5.5rem] text-[#2a2725] leading-[1.1] mb-6 md:mb-8 font-normal tracking-tight">
-                    Optimizing the business
-                    of <span className="italic font-light text-[#1f1d1b]">fine jewelry.</span>
+                <h1 className="hero-element font-serif italic text-4xl md:text-5xl lg:text-6xl xl:text-[5.5rem] text-[#2a2725] leading-[1.1] mb-6 md:mb-8 font-normal tracking-tight">
+                    Optimizing the business of fine jewelry.
                 </h1>
 
                 <p className="hero-element text-[#655f59] font-sans text-base md:text-lg font-light mb-10 max-w-2xl mx-auto leading-relaxed">

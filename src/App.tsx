@@ -4,6 +4,7 @@ import { Slide } from './sections/Service';
 import { Footer } from './components/footer.tsx';
 import { Hero } from './sections/Hero.tsx';
 import { ContactSection } from './sections/ContactSection.tsx';
+import { Features } from './sections/Features.tsx';
 import { Navigation } from './components/Navigation.tsx';
 import { AnimatedBackground } from './components/AnimatedBackground.tsx';
 import gsap from 'gsap';
@@ -184,6 +185,11 @@ export default function App() {
             </div>
           </div>
         </main>
+
+        {/* Features Section */}
+        <div className="relative w-full max-w-[1600px] z-20 shadow-[0_-20px_40px_rgba(0,0,0,0.05)]">
+          <Features />
+        </div>
 
         {/* Contact Section - Attached to the bottom of the scrolling flow */}
         <div
