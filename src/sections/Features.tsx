@@ -112,15 +112,14 @@ export const Features: React.FC = () => {
               onMouseEnter={() => setHoveredIndex(i)}
               onMouseLeave={() => setHoveredIndex(null)}
             >
-              {/* Background Image with minimal opacity, increasing on hover */}
+              {/* Background Image with minimal opacity, increasing to full on hover */}
               <div 
                 className="absolute inset-0 z-0 transition-opacity duration-700 ease-in-out"
                 style={{
                   backgroundImage: `url(${feature.image})`,
                   backgroundSize: 'cover',
                   backgroundPosition: 'center',
-                  opacity: hoveredIndex === i ? 0.35 : 0.04,
-                  mixBlendMode: 'multiply'
+                  opacity: hoveredIndex === i ? 1.0 : 0.04,
                 }}
               />
 
@@ -140,10 +139,15 @@ export const Features: React.FC = () => {
                 }}
               />
 
-              {/* Content wrapper to ensure it stays above background image */}
-              <div className="relative z-10 flex flex-col h-full">
-                {/* Number and Decorative Graphic */}
-                <div className="flex justify-between items-start mb-12">
+              {/* Content wrapper — hides on hover to reveal the image clearly */}
+              <div 
+                className="relative z-10 flex flex-col h-full transition-opacity duration-500 ease-in-out"
+                style={{
+                  opacity: hoveredIndex === i ? 0 : 1,
+                }}
+              >
+                {/* Number only — icons removed as requested */}
+                <div className="flex items-start mb-12">
                   <span
                     style={{
                       fontFamily: 'Cormorant Garamond, serif',
@@ -156,36 +160,6 @@ export const Features: React.FC = () => {
                   >
                     {feature.number}
                   </span>
-
-                  {/* Decorative Premium Graphic */}
-                  <div 
-                    className="w-16 h-16 transform transition-all duration-700"
-                    style={{ 
-                      color: '#D4AF37',
-                      transform: hoveredIndex === i ? 'rotate(45deg) scale(1.2)' : 'rotate(0deg) scale(1)',
-                      opacity: hoveredIndex === i ? 0.8 : 0.25
-                    }}
-                  >
-                    {i === 0 && (
-                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1">
-                        <path d="M12 2L3 9l9 13 9-13-9-7z" />
-                        <path d="M3 9h18" />
-                        <path d="M12 22l-4-13h8l-4 13z" />
-                      </svg>
-                    )}
-                    {i === 1 && (
-                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1">
-                        <circle cx="12" cy="12" r="9" />
-                        <circle cx="12" cy="12" r="5" />
-                        <path d="M12 3v18M3 12h18" />
-                      </svg>
-                    )}
-                    {i === 2 && (
-                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1">
-                        <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
-                      </svg>
-                    )}
-                  </div>
                 </div>
 
                 {/* 40px gold line — exactly matching Service's slide-line */}
