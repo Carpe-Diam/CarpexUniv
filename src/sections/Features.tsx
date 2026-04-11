@@ -6,16 +6,19 @@ const features = [
     number: '01',
     label: 'Catalogue',
     text: 'A curated catalogue that brings together designs crafted with both desirability and wearability in mind.',
+    image: '/features/catalogue.png'
   },
   {
     number: '02',
     label: 'Made to Order',
     text: 'A dedicated made-to-order portal to conveniently define your jewellery requirements and manage bespoke creations.',
+    image: '/features/bespoke.png'
   },
   {
     number: '03',
     label: 'End-to-End',
     text: 'We support your jewelry business end-to-end—from branding and packaging to CAD and everything in between.',
+    image: '/features/packaging.png'
   },
 ];
 
@@ -101,7 +104,7 @@ export const Features: React.FC = () => {
           {features.map((feature, i) => (
             <div
               key={feature.number}
-              className="feature-card relative flex flex-col px-10 py-12 xl:px-14 xl:py-14 overflow-hidden cursor-default"
+              className="feature-card relative flex flex-col px-10 py-12 xl:px-14 xl:py-14 overflow-hidden cursor-default group"
               style={{
                 background: hoveredIndex === i ? '#F3F1EC' : '#F9F7F2',
                 transition: 'background 0.5s ease',
@@ -109,6 +112,18 @@ export const Features: React.FC = () => {
               onMouseEnter={() => setHoveredIndex(i)}
               onMouseLeave={() => setHoveredIndex(null)}
             >
+              {/* Background Image with minimal opacity, increasing on hover */}
+              <div 
+                className="absolute inset-0 z-0 transition-opacity duration-700 ease-in-out"
+                style={{
+                  backgroundImage: `url(${feature.image})`,
+                  backgroundSize: 'cover',
+                  backgroundPosition: 'center',
+                  opacity: hoveredIndex === i ? 0.35 : 0.04,
+                  mixBlendMode: 'multiply'
+                }}
+              />
+
               {/* Gold left accent on hover — same treatment as Service's left gradient */}
               <div
                 style={{
@@ -121,94 +136,128 @@ export const Features: React.FC = () => {
                   transform: hoveredIndex === i ? 'scaleY(1)' : 'scaleY(0)',
                   transformOrigin: 'top',
                   transition: 'transform 0.5s ease',
+                  zIndex: 2
                 }}
               />
 
-              {/* Number */}
-              <span
-                style={{
-                  fontFamily: 'Cormorant Garamond, serif',
-                  fontSize: 'clamp(56px, 5vw, 76px)',
-                  fontWeight: 300,
-                  lineHeight: 1,
-                  color: hoveredIndex === i ? '#D4AF37' : '#c9bfa0',
-                  transition: 'color 0.5s ease',
-                  display: 'block',
-                  marginBottom: '24px',
-                }}
-              >
-                {feature.number}
-              </span>
-
-              {/* 40px gold line — exactly matching Service's slide-line */}
-              <div
-                style={{
-                  width: '40px',
-                  height: '1px',
-                  background: '#D4AF37',
-                  marginBottom: '28px',
-                  opacity: hoveredIndex === i ? 1 : 0.45,
-                  transition: 'opacity 0.5s ease',
-                }}
-              />
-
-              {/* Label */}
-              <span
-                style={{
-                  fontFamily: 'Montserrat, sans-serif',
-                  fontSize: '11px',
-                  fontWeight: 600,
-                  letterSpacing: '0.25em',
-                  textTransform: 'uppercase' as const,
-                  color: hoveredIndex === i ? '#D4AF37' : '#8c857d',
-                  transition: 'color 0.5s ease',
-                  display: 'block',
-                  marginBottom: '16px',
-                }}
-              >
-                {feature.label}
-              </span>
-
-              {/* Body text — left border matching Service's description style */}
-              <p
-                className="pl-4 border-l border-[#e2ddd8]"
-                style={{
-                  fontFamily: 'Montserrat, sans-serif',
-                  fontSize: '16px',
-                  fontWeight: 300,
-                  color: hoveredIndex === i ? '#2a2725' : '#655f59',
-                  lineHeight: 1.8,
-                  transition: 'color 0.5s ease',
-                  flex: 1,
-                }}
-              >
-                {feature.text}
-              </p>
-
-              {/* CTA — underline style matching Service's button exactly */}
-              <div
-                className="mt-10"
-                style={{
-                  opacity: hoveredIndex === i ? 1 : 0,
-                  transform: hoveredIndex === i ? 'translateX(0)' : 'translateX(-8px)',
-                  transition: 'opacity 0.5s ease, transform 0.5s ease',
-                }}
-              >
-                <div className="flex items-center gap-4 text-[#D4AF37] pb-2 border-b border-[#D4AF37]/40 w-fit">
+              {/* Content wrapper to ensure it stays above background image */}
+              <div className="relative z-10 flex flex-col h-full">
+                {/* Number and Decorative Graphic */}
+                <div className="flex justify-between items-start mb-12">
                   <span
                     style={{
-                      fontFamily: 'Montserrat, sans-serif',
-                      fontSize: '12px',
-                      fontWeight: 500,
-                      letterSpacing: '0.15em',
-                      textTransform: 'uppercase' as const,
+                      fontFamily: 'Cormorant Garamond, serif',
+                      fontSize: 'clamp(56px, 5vw, 76px)',
+                      fontWeight: 300,
+                      lineHeight: 1,
+                      color: hoveredIndex === i ? '#D4AF37' : '#c9bfa0',
+                      transition: 'color 0.5s ease',
                     }}
                   >
-                    Discover More
+                    {feature.number}
                   </span>
-                  <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="square" strokeLinejoin="miter" strokeWidth={1.5} d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                  </svg>
+
+                  {/* Decorative Premium Graphic */}
+                  <div 
+                    className="w-16 h-16 transform transition-all duration-700"
+                    style={{ 
+                      color: '#D4AF37',
+                      transform: hoveredIndex === i ? 'rotate(45deg) scale(1.2)' : 'rotate(0deg) scale(1)',
+                      opacity: hoveredIndex === i ? 0.8 : 0.25
+                    }}
+                  >
+                    {i === 0 && (
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1">
+                        <path d="M12 2L3 9l9 13 9-13-9-7z" />
+                        <path d="M3 9h18" />
+                        <path d="M12 22l-4-13h8l-4 13z" />
+                      </svg>
+                    )}
+                    {i === 1 && (
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1">
+                        <circle cx="12" cy="12" r="9" />
+                        <circle cx="12" cy="12" r="5" />
+                        <path d="M12 3v18M3 12h18" />
+                      </svg>
+                    )}
+                    {i === 2 && (
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1">
+                        <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
+                      </svg>
+                    )}
+                  </div>
+                </div>
+
+                {/* 40px gold line — exactly matching Service's slide-line */}
+                <div
+                  style={{
+                    width: '40px',
+                    height: '1px',
+                    background: '#D4AF37',
+                    marginBottom: '28px',
+                    opacity: hoveredIndex === i ? 1 : 0.45,
+                    transition: 'opacity 0.5s ease',
+                  }}
+                />
+
+                {/* Label */}
+                <span
+                  style={{
+                    fontFamily: 'Montserrat, sans-serif',
+                    fontSize: '11px',
+                    fontWeight: 600,
+                    letterSpacing: '0.25em',
+                    textTransform: 'uppercase' as const,
+                    color: hoveredIndex === i ? '#D4AF37' : '#8c857d',
+                    transition: 'color 0.5s ease',
+                    display: 'block',
+                    marginBottom: '16px',
+                  }}
+                >
+                  {feature.label}
+                </span>
+
+                {/* Body text — left border matching Service's description style */}
+                <p
+                  className="pl-4 border-l border-[#e2ddd8]"
+                  style={{
+                    fontFamily: 'Montserrat, sans-serif',
+                    fontSize: '16px',
+                    fontWeight: 300,
+                    color: hoveredIndex === i ? '#2a2725' : '#655f59',
+                    lineHeight: 1.8,
+                    transition: 'color 0.5s ease',
+                    flex: 1,
+                  }}
+                >
+                  {feature.text}
+                </p>
+
+                {/* CTA — underline style matching Service's button exactly */}
+                <div
+                  className="mt-10"
+                  style={{
+                    opacity: hoveredIndex === i ? 1 : 0,
+                    transform: hoveredIndex === i ? 'translateX(0)' : 'translateX(-8px)',
+                    transition: 'opacity 0.5s ease, transform 0.5s ease',
+                  }}
+                >
+                  <div className="flex items-center gap-4 text-[#D4AF37] pb-2 border-b border-[#D4AF37]/40 w-fit">
+                    <span
+                      style={{
+                        fontFamily: 'Montserrat, sans-serif',
+                        fontSize: '12px',
+                        fontWeight: 500,
+                        letterSpacing: '0.15em',
+                        textTransform: 'uppercase' as const,
+                      }}
+                    >
+                      Discover More
+                    </span>
+                    <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="square" strokeLinejoin="miter" strokeWidth={1.5} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                    </svg>
+                  </div>
                 </div>
               </div>
             </div>
@@ -219,3 +268,4 @@ export const Features: React.FC = () => {
     </section>
   );
 };
+

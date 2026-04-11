@@ -7,6 +7,7 @@ import { ContactSection } from './sections/ContactSection.tsx';
 import { Features } from './sections/Features.tsx';
 import { Navigation } from './components/Navigation.tsx';
 import { AnimatedBackground } from './components/AnimatedBackground.tsx';
+import { TeamPage } from './pages/TeamPage.tsx';
 import gsap from 'gsap';
 
 export default function App() {
@@ -15,10 +16,13 @@ export default function App() {
   const heroRef = useRef<HTMLDivElement>(null);
   const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
   const [slideProgress, setSlideProgress] = useState(0);
+  const [currentView, setCurrentView] = useState<'home' | 'team'>('home');
 
 
   // Soft Parallax effect for the hero when scrolling down
   useEffect(() => {
+    if (currentView !== 'home') return;
+    
     const handleHeroParallax = () => {
       if (!heroRef.current) return;
       const scrollY = window.scrollY;
@@ -37,9 +41,11 @@ export default function App() {
 
     window.addEventListener('scroll', handleHeroParallax, { passive: true });
     return () => window.removeEventListener('scroll', handleHeroParallax);
-  }, []);
+  }, [currentView]);
 
   useEffect(() => {
+    if (currentView !== 'home') return;
+
     const handleScroll = () => {
       if (!containerRef.current) return;
 
@@ -81,7 +87,7 @@ export default function App() {
     handleScroll(); // Initial check
 
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  }, [currentView]);
 
   const handleNavigate = (index: number) => {
     if (!containerRef.current) return;
@@ -111,94 +117,90 @@ export default function App() {
       </div>
 
       <div className="relative w-full max-w-[1600px] bg-[#F9F7F2] shadow-2xl min-h-screen z-10">
-        {/* 
-          Parallax Layering:
-          1. Hero: Fixed at Top (z-1). Covers Contact at start. Hidden after scroll.
-          2. Contact: Fixed at Bottom (z-0). Revealed when Main lifts up.
-          3. Main: Relative (z-10). Starts at 100vh (marginTop). Scrolls over everything.
-        */}
-
+        
         {/* Global Navigation - Fixed Z-[100] */}
         <div className="fixed top-0 left-1/2 -translate-x-1/2 w-full max-w-[1600px] h-screen z-[100] pointer-events-none overflow-hidden">
-          <Navigation />
+          <Navigation currentView={currentView} setCurrentView={setCurrentView} />
         </div>
 
-        {/* Hero Section Container - Fixed */}
-        <div
-          ref={heroRef}
-          className="fixed top-0 left-1/2 -translate-x-1/2 w-full max-w-[1600px] h-screen z-[1] will-change-transform" /* Optimize for parallax */
-        >
-          <Hero />
-        </div>
+        {currentView === 'home' ? (
+          <>
+            {/* Hero Section Container - Fixed */}
+            <div
+              ref={heroRef}
+              className="fixed top-0 left-1/2 -translate-x-1/2 w-full max-w-[1600px] h-screen z-[1] will-change-transform"
+            >
+              <Hero />
+            </div>
 
-        {/* Main Content (Slides) */}
-        <main
-          className="relative z-10 w-full shadow-[0_-20px_40px_rgba(0,0,0,0.05)]" /* Soft shadow over hero */
-          style={{
-            background: '#F9F7F2',
-            marginTop: '100vh'
-          }}
-        >
-          {/* The Scroll Container - 500vh height to allow scrolling time */}
-          <div ref={containerRef} className="relative h-[500vh]">
-
-            {/* Sticky Viewport - Sticks to top while scrolling through container */}
-            <div className="sticky top-0 h-screen overflow-hidden flex flex-col" style={{ backgroundColor: '#F9F7F2' }}>
-
-              {/* Main Content Area */}
-              <section className="flex-1 relative w-full">
-
-                {/* Gradient Overlay for bottom text legibility */}
-                <div
-                  className="absolute inset-x-0 bottom-0 h-[40vh] z-[5] pointer-events-none mix-blend-multiply opacity-5"
-                  style={{ background: 'linear-gradient(to top, #8c857d, transparent)' }}
-                />
-
-                {/* Slides */}
-                <div className="relative w-full h-full">
-                  {SLIDES.map((slide, index) => (
-                    <Slide
-                      key={slide.id}
-                      data={slide}
-                      isActive={index === currentSlideIndex}
+            {/* Main Content (Slides) */}
+            <main
+              className="relative z-10 w-full shadow-[0_-20px_40px_rgba(0,0,0,0.05)]"
+              style={{
+                background: '#F9F7F2',
+                marginTop: '100vh'
+              }}
+            >
+              <div ref={containerRef} className="relative h-[500vh]">
+                <div className="sticky top-0 h-screen overflow-hidden flex flex-col" style={{ backgroundColor: '#F9F7F2' }}>
+                  <section className="flex-1 relative w-full">
+                    <div
+                      className="absolute inset-x-0 bottom-0 h-[40vh] z-[5] pointer-events-none mix-blend-multiply opacity-5"
+                      style={{ background: 'linear-gradient(to top, #8c857d, transparent)' }}
                     />
-                  ))}
+                    <div className="relative w-full h-full">
+                      {SLIDES.map((slide, index) => (
+                        <Slide
+                          key={slide.id}
+                          data={slide}
+                          isActive={index === currentSlideIndex}
+                        />
+                      ))}
+                    </div>
+                  </section>
+
+                  <div
+                    className="transition-all duration-700 ease-in-out"
+                    style={{
+                      opacity: (currentSlideIndex === SLIDES.length - 1 && slideProgress > 0.95) ? 0 : 1,
+                      transform: (currentSlideIndex === SLIDES.length - 1 && slideProgress > 0.95) ? 'translateY(100%)' : 'translateY(0)'
+                    }}
+                  >
+                    <Footer
+                      slides={SLIDES}
+                      currentSlideIndex={currentSlideIndex}
+                      slideProgress={slideProgress}
+                      onNavigate={handleNavigate}
+                    />
+                  </div>
                 </div>
-              </section>
-
-              {/* Footer Navigation - Always at bottom of sticky container */}
-              <div
-                className="transition-all duration-700 ease-in-out"
-                style={{
-                  opacity: (currentSlideIndex === SLIDES.length - 1 && slideProgress > 0.95) ? 0 : 1,
-                  transform: (currentSlideIndex === SLIDES.length - 1 && slideProgress > 0.95) ? 'translateY(100%)' : 'translateY(0)'
-                }}
-              >
-                <Footer
-                  slides={SLIDES}
-                  currentSlideIndex={currentSlideIndex}
-                  slideProgress={slideProgress}
-                  onNavigate={handleNavigate}
-                />
               </div>
+            </main>
 
+            {/* Features Section */}
+            <div className="relative w-full max-w-[1600px] z-20 shadow-[0_-20px_40px_rgba(0,0,0,0.05)]">
+              <Features />
+            </div>
+
+            {/* Contact Section */}
+            <div
+              ref={contactRef}
+              className="relative w-full max-w-[1600px] z-20"
+            >
+              <ContactSection />
+            </div>
+          </>
+        ) : (
+          <div className="relative z-10 w-full">
+            <TeamPage setCurrentView={setCurrentView} />
+            
+            {/* Simple Contact Footer for other pages */}
+            <div className="relative w-full max-w-[1600px] z-20">
+              <ContactSection />
             </div>
           </div>
-        </main>
-
-        {/* Features Section */}
-        <div className="relative w-full max-w-[1600px] z-20 shadow-[0_-20px_40px_rgba(0,0,0,0.05)]">
-          <Features />
-        </div>
-
-        {/* Contact Section - Attached to the bottom of the scrolling flow */}
-        <div
-          ref={contactRef}
-          className="relative w-full max-w-[1600px] z-20"
-        >
-          <ContactSection />
-        </div>
+        )}
       </div>
     </div>
   );
-}
+}

@@ -1,13 +1,36 @@
 import { useState } from 'react';
 import { X } from 'lucide-react';
 
-export const Navigation = () => {
+interface NavigationProps {
+    currentView: 'home' | 'team';
+    setCurrentView: (view: 'home' | 'team') => void;
+}
+
+export const Navigation = ({ currentView, setCurrentView }: NavigationProps) => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
 
     const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
 
     const handleNav = (destination: string) => {
         setIsMenuOpen(false);
+        
+        if (destination === 'team') {
+            setCurrentView('team');
+            window.scrollTo({ top: 0, behavior: 'instant' });
+            return;
+        }
+
+        // For all other destinations, we must be on the 'home' view
+        if (currentView !== 'home') {
+            setCurrentView('home');
+            // Give a tiny moment for React to render the home view before scrolling
+            setTimeout(() => performScroll(destination), 50);
+        } else {
+            performScroll(destination);
+        }
+    };
+
+    const performScroll = (destination: string) => {
         if (destination === 'home') {
             window.scrollTo({ top: 0, behavior: 'smooth' });
         } else if (destination === 'services') {
@@ -70,6 +93,7 @@ export const Navigation = () => {
                     {[
                         { name: 'Home', id: 'home' },
                         { name: 'Services & Operations', id: 'services' },
+                        { name: 'Our Team', id: 'team' },
                         { name: 'Direct Inquiry', id: 'contact' }
                     ].map((item, index) => (
                         <button
@@ -87,11 +111,32 @@ export const Navigation = () => {
                             <div className="absolute top-1/2 left-0 w-0 h-[1px] bg-[#D4AF37] -translate-y-1/2 transition-all duration-500 group-hover:w-full opacity-0 group-hover:opacity-100 z-0" />
                         </button>
                     ))}
+
+                    {/* External Portal Link */}
+                    <div className="mt-4 pt-8 border-t border-[#e2ddd8] w-full">
+                        <a
+                            href="https://app.univdiam.com"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="group relative font-serif text-2xl sm:text-3xl text-[#2a2725] hover:text-[#D4AF37] transition-colors duration-500 cursor-pointer text-left w-full overflow-hidden flex items-center gap-4"
+                            style={{
+                                transitionDelay: `${4 * 50}ms`,
+                                opacity: isMenuOpen ? 1 : 0,
+                                transform: isMenuOpen ? 'translateY(0)' : 'translateY(20px)'
+                            }}
+                        >
+                            <span className="relative z-10 block pr-8">Access the Portal</span>
+                            <svg className="w-6 h-6 transform -rotate-45 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path strokeLinecap="square" strokeLinejoin="miter" strokeWidth={1} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                            </svg>
+                            <div className="absolute top-1/2 left-0 w-0 h-[1px] bg-[#D4AF37] -translate-y-1/2 transition-all duration-500 group-hover:w-full opacity-0 group-hover:opacity-100 z-0" />
+                        </a>
+                    </div>
                 </nav>
 
                 <div className="mt-auto pb-12 opacity-80"
                     style={{
-                        transitionDelay: `300ms`,
+                        transitionDelay: `400ms`,
                         opacity: isMenuOpen ? 1 : 0,
                         transform: isMenuOpen ? 'translateY(0)' : 'translateY(20px)',
                         transition: 'all 0.5s ease-out'
@@ -105,3 +150,4 @@ export const Navigation = () => {
         </>
     );
 };
+

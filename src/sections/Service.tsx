@@ -111,25 +111,6 @@ export const Slide: React.FC<SlideProps> = ({ data, isActive }) => {
                     {data.description}
                 </p>
 
-                {/* CTA Button */}
-                <button
-                    className="slide-element self-start transition-all duration-500 overflow-hidden relative group"
-                >
-                    <div className="flex items-center gap-4 text-[#2a2725] hover:text-[#D4AF37] transition-colors pb-2 border-b border-[#2a2725]/20 hover:border-[#D4AF37]/50">
-                        <span style={{
-                            fontFamily: 'Montserrat, sans-serif',
-                            fontSize: '12px',
-                            fontWeight: 500,
-                            letterSpacing: '0.15em',
-                            textTransform: 'uppercase',
-                        }}>
-                             {data.buttonText || 'Discover More'}
-                        </span>
-                        <svg className="w-4 h-4 transform group-hover:translate-x-2 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path strokeLinecap="square" strokeLinejoin="miter" strokeWidth={1.5} d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                        </svg>
-                    </div>
-                </button>
             </div>
 
             {/* Right Side - Background Image */}
