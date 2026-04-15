@@ -22,7 +22,7 @@ export default function App() {
   // Soft Parallax effect for the hero when scrolling down
   useEffect(() => {
     if (currentView !== 'home') return;
-    
+
     const handleHeroParallax = () => {
       if (!heroRef.current) return;
       const scrollY = window.scrollY;
@@ -117,7 +117,7 @@ export default function App() {
       </div>
 
       <div className="relative w-full max-w-[1600px] bg-[#F9F7F2] shadow-2xl min-h-screen z-10">
-        
+
         {/* Global Navigation - Fixed Z-[100] */}
         <div className="fixed top-0 left-1/2 -translate-x-1/2 w-full max-w-[1600px] h-screen z-[100] pointer-events-none overflow-hidden">
           <Navigation currentView={currentView} setCurrentView={setCurrentView} />
@@ -131,6 +131,9 @@ export default function App() {
               className="fixed top-0 left-1/2 -translate-x-1/2 w-full max-w-[1600px] h-screen z-[1] will-change-transform"
             >
               <Hero />
+              <div>
+                Univ Diam is a fine jewelry partner built on a Design–Manufacture–Deliver model — combining creative capability, disciplined operational infrastructure, and strategic collaboration to serve independent retailers as a true extension of their team.
+              </div>
             </div>
 
             {/* Main Content (Slides) */}
@@ -193,7 +196,7 @@ export default function App() {
         ) : (
           <div className="relative z-10 w-full">
             <TeamPage setCurrentView={setCurrentView} />
-            
+
             {/* Simple Contact Footer for other pages */}
             <div className="relative w-full max-w-[1600px] z-20">
               <ContactSection />
@@ -203,4 +206,4 @@ export default function App() {
       </div>
     </div>
   );
-}
+}

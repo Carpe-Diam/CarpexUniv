@@ -13,7 +13,7 @@ export const Navigation = ({ currentView, setCurrentView }: NavigationProps) => 
 
     const handleNav = (destination: string) => {
         setIsMenuOpen(false);
-        
+
         if (destination === 'team') {
             setCurrentView('team');
             window.scrollTo({ top: 0, behavior: 'instant' });
@@ -125,7 +125,7 @@ export const Navigation = ({ currentView, setCurrentView }: NavigationProps) => 
                                 transform: isMenuOpen ? 'translateY(0)' : 'translateY(20px)'
                             }}
                         >
-                            <span className="relative z-10 block pr-8">Access the Portal</span>
+                            <span className="relative z-10 block pr-8">Retailer Login</span>
                             <svg className="w-6 h-6 transform -rotate-45 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path strokeLinecap="square" strokeLinejoin="miter" strokeWidth={1} d="M14 5l7 7m0 0l-7 7m7-7H3" />
                             </svg>

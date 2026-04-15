@@ -4,19 +4,19 @@ import gsap from 'gsap';
 const features = [
   {
     number: '01',
-    label: 'Catalogue',
+    label: 'Stock Catalog',
     text: 'A curated catalogue that brings together designs crafted with both desirability and wearability in mind.',
     image: '/features/catalogue.png'
   },
   {
     number: '02',
-    label: 'Made to Order',
+    label: 'Custom/Bespoke',
     text: 'A dedicated made-to-order portal to conveniently define your jewellery requirements and manage bespoke creations.',
     image: '/features/bespoke.png'
   },
   {
     number: '03',
-    label: 'End-to-End',
+    label: 'Brand Growth Services',
     text: 'We support your jewelry business end-to-end—from branding and packaging to CAD and everything in between.',
     image: '/features/packaging.png'
   },
@@ -74,7 +74,7 @@ export const Features: React.FC = () => {
               color: '#8c857d',
             }}
           >
-            What We Offer
+            Product & Service offering
           </span>
           {/* Gold accent line — matches Service's slide-line: 40px × 1px */}
           <div
@@ -96,7 +96,7 @@ export const Features: React.FC = () => {
           }}
         >
           Built for the modern<br />
-          <span style={{ fontStyle: 'italic', fontWeight: 300 }}>jewellery business.</span>
+          jewelry retailer.
         </h2>
 
         {/* Feature grid — gap-px divider using site border colour */}
@@ -113,7 +113,7 @@ export const Features: React.FC = () => {
               onMouseLeave={() => setHoveredIndex(null)}
             >
               {/* Background Image with minimal opacity, increasing to full on hover */}
-              <div 
+              <div
                 className="absolute inset-0 z-0 transition-opacity duration-700 ease-in-out"
                 style={{
                   backgroundImage: `url(${feature.image})`,
@@ -140,7 +140,7 @@ export const Features: React.FC = () => {
               />
 
               {/* Content wrapper — hides on hover to reveal the image clearly */}
-              <div 
+              <div
                 className="relative z-10 flex flex-col h-full transition-opacity duration-500 ease-in-out"
                 style={{
                   opacity: hoveredIndex === i ? 0 : 1,

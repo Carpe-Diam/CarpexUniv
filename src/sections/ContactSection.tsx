@@ -57,7 +57,7 @@ export const ContactSection = () => {
                                     letterSpacing: '-0.02em',
                                 }}
                             >
-                                Initiate a <br className="hidden sm:block"/>
+                                Initiate a <br className="hidden sm:block" />
                                 conversation.
                             </h2>
                             <p className="text-[#655f59] font-sans text-lg font-light max-w-sm leading-relaxed">
@@ -71,7 +71,7 @@ export const ContactSection = () => {
                             <a href="mailto:hello@carpediam.in" className="flex items-center gap-6 group">
                                 <Mail className="w-5 h-5 text-[#8c857d] group-hover:text-[#D4AF37] transition-colors stroke-[1.5]" />
                                 <span className="font-sans text-[#2a2725] text-base font-medium tracking-wide group-hover:text-[#D4AF37] transition-colors">
-                                    hello@carpediam.in
+                                    hello@univdiam.com
                                 </span>
                             </a>
 
@@ -79,8 +79,8 @@ export const ContactSection = () => {
                             <a href="tel:+919930900465" className="flex items-center gap-6 group">
                                 <Phone className="w-5 h-5 text-[#8c857d] group-hover:text-[#D4AF37] transition-colors stroke-[1.5]" />
                                 <span className="font-sans text-[#2a2725] text-base font-medium tracking-wide group-hover:text-[#D4AF37] transition-colors">
-                                    +91 99309 00465<br/>
-                                    <span className="text-[#8c857d] text-sm font-normal">Rushabh Doshi</span>
+                                    +1 412 391 9650<br />
+                                    <span className="text-[#8c857d] text-sm font-normal">Girish Jain</span>
                                 </span>
                             </a>
 
@@ -113,14 +113,14 @@ export const ContactSection = () => {
                     {/* RIGHT COLUMN: Contact Form */}
                     <div className="w-full bg-white p-10 shadow-sm border border-[#e2ddd8]">
                         <div className="mb-10 flex items-center justify-between">
-                             <h3
+                            <h3
                                 className="font-serif text-3xl text-[#2a2725] font-normal"
                             >
                                 Project Inquiry
                             </h3>
                             <ArrowRight className="w-5 h-5 text-[#D4AF37] stroke-[1]" />
                         </div>
-                       
+
                         <form onSubmit={handleSubmit} className="space-y-8">
                             {/* Input Group */}
                             <div className="space-y-6">

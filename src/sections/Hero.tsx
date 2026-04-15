@@ -37,25 +37,25 @@ export const Hero = () => {
 
 
             {/* Centered Content */}
-            <div ref={contentRef} className="relative z-10 text-center max-w-5xl mx-auto px-8 md:px-12 lg:px-24 xl:px-32 w-full">
+            <div ref={contentRef} className="relative z-10 text-center max-w-7xl mx-auto px-8 md:px-12 lg:px-24 xl:px-32 w-full">
 
                 {/* Sophisticated Consultancy Top Label */}
-                <div className="hero-element mb-4 md:mb-6">
+                {/* <div className="hero-element mb-4 md:mb-6">
                     <span className="text-[#8c857d] font-sans text-xs md:text-sm tracking-[0.2em] uppercase font-medium border-b border-[#D4AF37]/40 pb-2">
                         Strategic Jewelry Operations
                     </span>
-                </div>
+                </div> */}
 
-                <h1 className="hero-element font-serif italic text-4xl md:text-5xl lg:text-6xl xl:text-[5.5rem] text-[#2a2725] leading-[1.1] mb-6 md:mb-8 font-normal tracking-tight">
-                    Optimizing the business of fine jewelry.
+                <h1 className="hero-element text-4xl md:text-5xl lg:text-6xl xl:text-[5.5rem] text-[#2a2725] leading-[1.1] mb-6 md:mb-8 font-normal tracking-tight">
+                    Design. Manufacture. Deliver.
                 </h1>
 
-                <p className="hero-element text-[#655f59] font-sans text-base md:text-lg font-light mb-10 max-w-2xl mx-auto leading-relaxed">
-                    We architect digital supply chains and custom catalogue solutions for modern jewelers, bridging legacy craftsmanship with scalable operational systems.
+                <p className="hero-element text-[#655f59] font-sans text-base md:text-lg font-light mb-10 mx-auto leading-relaxed">
+                    Setting the standard for operational excellence in fine jewelry production — becoming the most trusted end-to-end partner for independent jewelry retailers.
                 </p>
 
                 {/* Refined Corporate Actions */}
-                <div className="hero-element flex flex-col sm:flex-row items-center justify-center gap-5">
+                {/* <div className="hero-element flex flex-col sm:flex-row items-center justify-center gap-5">
                     <button
                         onClick={() => window.scrollTo({ top: window.innerHeight, behavior: 'smooth' })}
                         className="bg-[#2a2725] text-white px-8 py-4 rounded-none font-sans font-medium hover:bg-[#1f1d1b] transition-all duration-300 w-full sm:w-auto text-center"
@@ -68,10 +68,10 @@ export const Hero = () => {
                     >
                         Book a Consultation
                     </button>
-                </div>
+                </div> */}
 
                 {/* Trust/Metric Indicators */}
-                <div className="hero-element mt-12 md:mt-20 flex flex-wrap justify-center gap-x-12 gap-y-4 pt-6 border-t border-[#e2ddd8]">
+                {/* <div className="hero-element mt-12 md:mt-20 flex flex-wrap justify-center gap-x-12 gap-y-4 pt-6 border-t border-[#e2ddd8]">
                     <div>
                         <p className="text-[#a59d95] text-xs uppercase tracking-wider font-semibold mb-1">Ecosystem</p>
                         <p className="text-[#2a2725] text-sm md:text-base font-serif">End-to-End Digital Operations</p>
@@ -80,7 +80,8 @@ export const Hero = () => {
                         <p className="text-[#a59d95] text-xs uppercase tracking-wider font-semibold mb-1">Scale</p>
                         <p className="text-[#2a2725] text-sm md:text-base font-serif">Global Bespoke & Catalogue Supply</p>
                     </div>
-                </div>
+                </div> */}
+
             </div>
 
             {/* Elegant minimal scroll indicator */}
