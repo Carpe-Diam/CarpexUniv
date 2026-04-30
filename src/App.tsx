@@ -1,19 +1,24 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, useCallback } from 'react';
 import { SLIDES } from './constants.tsx';
 import { Slide } from './sections/Service';
 import { Footer } from './components/footer.tsx';
 import { Hero } from './sections/Hero.tsx';
+import { AboutUs } from './sections/AboutUs.tsx';
 import { ContactSection } from './sections/ContactSection.tsx';
 import { Features } from './sections/Features.tsx';
 import { Navigation } from './components/Navigation.tsx';
 import { AnimatedBackground } from './components/AnimatedBackground.tsx';
 import { TeamPage } from './pages/TeamPage.tsx';
 import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+gsap.registerPlugin(ScrollTrigger);
 
 export default function App() {
   const containerRef = useRef<HTMLDivElement>(null);
   const contactRef = useRef<HTMLDivElement>(null);
   const heroRef = useRef<HTMLDivElement>(null);
+  const stRef = useRef<ScrollTrigger | null>(null);
   const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
   const [slideProgress, setSlideProgress] = useState(0);
   const [currentView, setCurrentView] = useState<'home' | 'team'>('home');
@@ -28,7 +33,6 @@ export default function App() {
       const scrollY = window.scrollY;
 
       if (scrollY <= window.innerHeight) {
-        // Move the hero down slightly as we scroll away, creating depth
         gsap.set(heroRef.current, {
           y: scrollY * 0.4,
           opacity: 1 - (scrollY / window.innerHeight),
@@ -43,67 +47,66 @@ export default function App() {
     return () => window.removeEventListener('scroll', handleHeroParallax);
   }, [currentView]);
 
+  // ── GSAP ScrollTrigger-driven slideshow ──
   useEffect(() => {
-    if (currentView !== 'home') return;
+    if (currentView !== 'home' || !containerRef.current) return;
 
-    const handleScroll = () => {
-      if (!containerRef.current) return;
+    const totalSlides = SLIDES.length;
+    const snapIncrement = 1 / (totalSlides - 1); // 0.5 for 3 slides
 
-      const container = containerRef.current;
-      const { top, height } = container.getBoundingClientRect();
-      const viewportHeight = window.innerHeight;
+    const ctx = gsap.context(() => {
+      const trigger = ScrollTrigger.create({
+        trigger: containerRef.current,
+        pin: true,                          // pin the container in the viewport
+        scrub: 1,                           // smooth 1-second lag behind scroll
+        start: 'top top',                   // pin starts when top of container hits top of viewport
+        end: () => `+=${totalSlides * 100}%`, // scroll distance = SLIDES.length × 100vh
+        snap: {
+          snapTo: snapIncrement,            // snap to each slide boundary
+          duration: { min: 0.3, max: 0.6 }, // snap animation duration range
+          ease: 'power2.inOut',             // smooth snap easing
+        },
+        onUpdate: (self) => {
+          const progress = self.progress;   // 0 → 1 over whole scroll distance
 
-      // Calculate how far we've scrolled into the container
-      const scrolled = -top;
-      const scrollableHeight = height - viewportHeight;
+          // Map progress to slide index (0, 1, 2 for 3 slides)
+          const rawIndex = progress * (totalSlides - 1);
+          const index = Math.round(rawIndex);
+          const clampedIndex = Math.max(0, Math.min(totalSlides - 1, index));
 
-      if (scrollableHeight <= 0) return;
+          setCurrentSlideIndex(clampedIndex);
 
-      // Normalize scroll progress between 0 and 1
-      let progress = scrolled / scrollableHeight;
-      progress = Math.max(0, Math.min(1, progress));
+          // Map progress to a snapped value for the footer progress bar
+          const snappedProgress = clampedIndex / (totalSlides - 1);
+          setSlideProgress(snappedProgress);
+        },
+      });
 
-      const totalSlides = SLIDES.length;
+      // Store reference for handleNavigate
+      stRef.current = trigger;
+    }, containerRef);
 
-      // Map progress to slides
-      const rawSlideIndex = progress * totalSlides;
-
-      let index = Math.floor(rawSlideIndex);
-      index = Math.max(0, Math.min(totalSlides - 1, index));
-
-      // Calculate progress within the current slide (0 to 1)
-      const currentSlideProgress = rawSlideIndex - index;
-
-      // Edge case: if we are at the very end
-      if (progress >= 1) {
-        index = totalSlides - 1;
-      }
-
-      setCurrentSlideIndex(index);
-      setSlideProgress(progress >= 1 ? 1 : currentSlideProgress);
-    };
-
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    handleScroll(); // Initial check
-
-    return () => window.removeEventListener('scroll', handleScroll);
+    return () => ctx.revert(); // clean up for React Strict Mode & unmount
   }, [currentView]);
 
-  const handleNavigate = (index: number) => {
-    if (!containerRef.current) return;
+  // Navigate to a specific slide by scrolling to the correct position
+  const handleNavigate = useCallback((index: number) => {
+    const trigger = stRef.current;
+    if (!trigger) return;
 
-    const container = containerRef.current;
-    const containerTop = container.offsetTop;
-    const scrollableHeight = container.offsetHeight - window.innerHeight;
-    const scrollPerSlide = scrollableHeight / SLIDES.length;
+    const totalSlides = SLIDES.length;
+    const targetProgress = index / (totalSlides - 1);
 
-    const targetScrollY = containerTop + (index * scrollPerSlide) + 10;
+    // Calculate the absolute scroll position for this progress
+    const scrollStart = trigger.start;
+    const scrollEnd = trigger.end;
+    const targetScroll = scrollStart + targetProgress * (scrollEnd - scrollStart);
 
     window.scrollTo({
-      top: targetScrollY,
-      behavior: 'smooth'
+      top: targetScroll,
+      behavior: 'smooth',
     });
-  };
+  }, []);
 
   return (
     <div className="relative min-h-screen bg-[#EEEDE9] text-[#2a2725] selection:bg-[#D4AF37]/30 flex justify-center w-full">
@@ -131,9 +134,6 @@ export default function App() {
               className="fixed top-0 left-1/2 -translate-x-1/2 w-full max-w-[1600px] h-screen z-[1] will-change-transform"
             >
               <Hero />
-              <div>
-                Univ Diam is a fine jewelry partner built on a Design–Manufacture–Deliver model — combining creative capability, disciplined operational infrastructure, and strategic collaboration to serve independent retailers as a true extension of their team.
-              </div>
             </div>
 
             {/* Main Content (Slides) */}
@@ -144,39 +144,30 @@ export default function App() {
                 marginTop: '100vh'
               }}
             >
-              <div ref={containerRef} className="relative h-[500vh]">
-                <div className="sticky top-0 h-screen overflow-hidden flex flex-col" style={{ backgroundColor: '#F9F7F2' }}>
-                  <section className="flex-1 relative w-full">
-                    <div
-                      className="absolute inset-x-0 bottom-0 h-[40vh] z-[5] pointer-events-none mix-blend-multiply opacity-5"
-                      style={{ background: 'linear-gradient(to top, #8c857d, transparent)' }}
-                    />
-                    <div className="relative w-full h-full">
-                      {SLIDES.map((slide, index) => (
-                        <Slide
-                          key={slide.id}
-                          data={slide}
-                          isActive={index === currentSlideIndex}
-                        />
-                      ))}
-                    </div>
-                  </section>
-
+              <AboutUs />
+              <div ref={containerRef} className="relative h-screen overflow-hidden flex flex-col" style={{ backgroundColor: '#F9F7F2' }}>
+                <section className="flex-1 relative w-full">
                   <div
-                    className="transition-all duration-700 ease-in-out"
-                    style={{
-                      opacity: (currentSlideIndex === SLIDES.length - 1 && slideProgress > 0.95) ? 0 : 1,
-                      transform: (currentSlideIndex === SLIDES.length - 1 && slideProgress > 0.95) ? 'translateY(100%)' : 'translateY(0)'
-                    }}
-                  >
-                    <Footer
-                      slides={SLIDES}
-                      currentSlideIndex={currentSlideIndex}
-                      slideProgress={slideProgress}
-                      onNavigate={handleNavigate}
-                    />
+                    className="absolute inset-x-0 bottom-0 h-[40vh] z-[5] pointer-events-none mix-blend-multiply opacity-5"
+                    style={{ background: 'linear-gradient(to top, #8c857d, transparent)' }}
+                  />
+                  <div className="relative w-full h-full">
+                    {SLIDES.map((slide, index) => (
+                      <Slide
+                        key={slide.id}
+                        data={slide}
+                        isActive={index === currentSlideIndex}
+                      />
+                    ))}
                   </div>
-                </div>
+                </section>
+
+                <Footer
+                  slides={SLIDES}
+                  currentSlideIndex={currentSlideIndex}
+                  slideProgress={slideProgress}
+                  onNavigate={handleNavigate}
+                />
               </div>
             </main>
 

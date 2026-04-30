@@ -61,7 +61,7 @@ export const Slide: React.FC<SlideProps> = ({ data, isActive }) => {
                     <span
                         className="slide-element inline-block"
                         style={{
-                            fontFamily: 'Montserrat, sans-serif',
+                            fontFamily: 'Inter, sans-serif',
                             fontSize: '11px',
                             fontWeight: 600,
                             letterSpacing: '0.25em',
@@ -86,7 +86,7 @@ export const Slide: React.FC<SlideProps> = ({ data, isActive }) => {
                 <h2
                     className="slide-element mb-8 whitespace-pre-line"
                     style={{
-                        fontFamily: 'Cormorant Garamond, serif',
+                        fontFamily: 'Inter, sans-serif',
                         fontSize: 'clamp(42px, 6vw, 76px)',
                         fontWeight: 400, // Thinner, elegant weight
                         color: '#2a2725', // Deep charcoal
@@ -101,7 +101,7 @@ export const Slide: React.FC<SlideProps> = ({ data, isActive }) => {
                 <p
                     className="slide-element max-w-md mb-12 pl-4 border-l border-[#e2ddd8]"
                     style={{
-                        fontFamily: 'Montserrat, sans-serif',
+                        fontFamily: 'Inter, sans-serif',
                         fontSize: '16px',
                         fontWeight: 300, // Lighter, editorial feel
                         color: '#655f59', // Softer grey

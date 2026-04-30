@@ -75,7 +75,7 @@ export const TeamPage: React.FC<TeamPageProps> = ({ setCurrentView }) => {
           <div className="team-label-row mb-8">
             <span
               style={{
-                fontFamily: 'Montserrat, sans-serif',
+                fontFamily: 'Inter, sans-serif',
                 fontSize: '11px',
                 fontWeight: 600,
                 letterSpacing: '0.25em',
@@ -94,7 +94,7 @@ export const TeamPage: React.FC<TeamPageProps> = ({ setCurrentView }) => {
           <h1
             className="team-headline mb-24 lg:mb-32"
             style={{
-              fontFamily: 'Cormorant Garamond, serif',
+              fontFamily: 'Inter, sans-serif',
               fontSize: 'clamp(48px, 8vw, 96px)',
               fontWeight: 400,
               color: '#2a2725',
@@ -122,7 +122,7 @@ export const TeamPage: React.FC<TeamPageProps> = ({ setCurrentView }) => {
                 
                 <h3
                   style={{
-                    fontFamily: 'Cormorant Garamond, serif',
+                    fontFamily: 'Inter, sans-serif',
                     fontSize: '32px',
                     fontWeight: 400,
                     color: '#2a2725',
@@ -134,7 +134,7 @@ export const TeamPage: React.FC<TeamPageProps> = ({ setCurrentView }) => {
                 
                 <span
                   style={{
-                    fontFamily: 'Montserrat, sans-serif',
+                    fontFamily: 'Inter, sans-serif',
                     fontSize: '11px',
                     fontWeight: 600,
                     letterSpacing: '0.15em',
@@ -151,7 +151,7 @@ export const TeamPage: React.FC<TeamPageProps> = ({ setCurrentView }) => {
                 
                 <p
                   style={{
-                    fontFamily: 'Montserrat, sans-serif',
+                    fontFamily: 'Inter, sans-serif',
                     fontSize: '15px',
                     fontWeight: 300,
                     color: '#655f59',

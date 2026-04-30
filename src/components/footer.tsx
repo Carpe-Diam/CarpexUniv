@@ -79,7 +79,7 @@ export const Footer: React.FC<FooterProps> = ({
                                     className="block transition-all duration-500 transform"
                                     style={{
                                         color: isActive ? '#2a2725' : '#8c857d',
-                                        fontFamily: 'Montserrat, sans-serif',
+                                        fontFamily: 'Inter, sans-serif',
                                         fontSize: isActive ? '13px' : '11px',
                                         fontWeight: isActive ? 500 : 400,
                                         textTransform: 'uppercase',
@@ -99,7 +99,7 @@ export const Footer: React.FC<FooterProps> = ({
                 className="lg:hidden absolute right-4 bottom-6 transition-all duration-300"
                 style={{
                     color: '#2a2725',
-                    fontFamily: 'Montserrat, sans-serif',
+                    fontFamily: 'Inter, sans-serif',
                     fontSize: '11px',
                     fontWeight: 500,
                     textTransform: 'uppercase',

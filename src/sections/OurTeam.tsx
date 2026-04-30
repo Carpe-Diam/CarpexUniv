@@ -65,7 +65,7 @@ export const OurTeam: React.FC = () => {
         <div className="team-label-row mb-8">
           <span
             style={{
-              fontFamily: 'Montserrat, sans-serif',
+              fontFamily: 'Inter, sans-serif',
               fontSize: '11px',
               fontWeight: 600,
               letterSpacing: '0.25em',
@@ -84,7 +84,7 @@ export const OurTeam: React.FC = () => {
         <h2
           className="team-headline mb-16 lg:mb-20"
           style={{
-            fontFamily: 'Cormorant Garamond, serif',
+            fontFamily: 'Inter, sans-serif',
             fontSize: 'clamp(42px, 6vw, 76px)',
             fontWeight: 400,
             color: '#2a2725',
@@ -112,7 +112,7 @@ export const OurTeam: React.FC = () => {
               
               <h3
                 style={{
-                  fontFamily: 'Cormorant Garamond, serif',
+                  fontFamily: 'Inter, sans-serif',
                   fontSize: '28px',
                   fontWeight: 400,
                   color: '#2a2725',
@@ -124,7 +124,7 @@ export const OurTeam: React.FC = () => {
               
               <span
                 style={{
-                  fontFamily: 'Montserrat, sans-serif',
+                  fontFamily: 'Inter, sans-serif',
                   fontSize: '11px',
                   fontWeight: 600,
                   letterSpacing: '0.15em',
@@ -139,7 +139,7 @@ export const OurTeam: React.FC = () => {
               
               <p
                 style={{
-                  fontFamily: 'Montserrat, sans-serif',
+                  fontFamily: 'Inter, sans-serif',
                   fontSize: '14px',
                   fontWeight: 300,
                   color: '#655f59',

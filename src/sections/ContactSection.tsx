@@ -49,7 +49,7 @@ export const ContactSection = () => {
                             </span>
                             <h2
                                 style={{
-                                    fontFamily: 'Cormorant Garamond, serif',
+                                    fontFamily: 'Inter, sans-serif',
                                     fontWeight: 400,
                                     fontSize: 'clamp(46px, 5vw, 64px)',
                                     color: '#2a2725',
@@ -166,7 +166,7 @@ export const ContactSection = () => {
                                 type="submit"
                                 disabled={isSubmitting}
                                 className="w-full py-5 text-white bg-[#2a2725] font-medium tracking-[0.15em] uppercase text-xs hover:bg-[#1f1d1b] transition-colors disabled:opacity-50 mt-4 flex items-center justify-center gap-3"
-                                style={{ fontFamily: 'Montserrat, sans-serif' }}
+                                style={{ fontFamily: 'Inter, sans-serif' }}
                             >
                                 {isSubmitting ? 'Transmitting...' : 'Submit Request'}
                                 {!isSubmitting && <ArrowRight className="w-4 h-4" />}

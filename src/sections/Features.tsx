@@ -66,7 +66,7 @@ export const Features: React.FC = () => {
         <div className="feature-label-row mb-8">
           <span
             style={{
-              fontFamily: 'Montserrat, sans-serif',
+              fontFamily: 'Inter, sans-serif',
               fontSize: '11px',
               fontWeight: 600,
               letterSpacing: '0.25em',
@@ -86,7 +86,7 @@ export const Features: React.FC = () => {
         <h2
           className="feature-headline mb-16 lg:mb-20"
           style={{
-            fontFamily: 'Cormorant Garamond, serif',
+            fontFamily: 'Inter, sans-serif',
             fontSize: 'clamp(42px, 6vw, 76px)',
             fontWeight: 400,
             color: '#2a2725',
@@ -150,7 +150,7 @@ export const Features: React.FC = () => {
                 <div className="flex items-start mb-12">
                   <span
                     style={{
-                      fontFamily: 'Cormorant Garamond, serif',
+                      fontFamily: 'Inter, sans-serif',
                       fontSize: 'clamp(56px, 5vw, 76px)',
                       fontWeight: 300,
                       lineHeight: 1,
@@ -177,7 +177,7 @@ export const Features: React.FC = () => {
                 {/* Label */}
                 <span
                   style={{
-                    fontFamily: 'Montserrat, sans-serif',
+                    fontFamily: 'Inter, sans-serif',
                     fontSize: '11px',
                     fontWeight: 600,
                     letterSpacing: '0.25em',
@@ -195,7 +195,7 @@ export const Features: React.FC = () => {
                 <p
                   className="pl-4 border-l border-[#e2ddd8]"
                   style={{
-                    fontFamily: 'Montserrat, sans-serif',
+                    fontFamily: 'Inter, sans-serif',
                     fontSize: '16px',
                     fontWeight: 300,
                     color: hoveredIndex === i ? '#2a2725' : '#655f59',
@@ -219,7 +219,7 @@ export const Features: React.FC = () => {
                   <div className="flex items-center gap-4 text-[#D4AF37] pb-2 border-b border-[#D4AF37]/40 w-fit">
                     <span
                       style={{
-                        fontFamily: 'Montserrat, sans-serif',
+                        fontFamily: 'Inter, sans-serif',
                         fontSize: '12px',
                         fontWeight: 500,
                         letterSpacing: '0.15em',
