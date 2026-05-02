@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 import gsap from 'gsap';
 import { Play } from 'lucide-react';
 
@@ -14,11 +15,8 @@ const jewelryImages = {
   img9: '/lookbook/jewel9.png',
 };
 
-interface LookbookPageProps {
-  setCurrentView: (view: 'home' | 'team' | 'lookbook') => void;
-}
-
-export const LookbookPage: React.FC<LookbookPageProps> = ({ setCurrentView }) => {
+export const LookbookPage: React.FC = () => {
+  const navigate = useNavigate();
   const sectionRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
@@ -48,7 +46,7 @@ export const LookbookPage: React.FC<LookbookPageProps> = ({ setCurrentView }) =>
       {/* Fixed Logo Container */}
       <div className="fixed top-0 left-1/2 -translate-x-1/2 w-full max-w-[1600px] z-[110] pointer-events-none">
         <button 
-          onClick={() => setCurrentView('home')}
+          onClick={() => navigate('/')}
           className="absolute top-8 left-8 md:top-12 md:left-12 lookbook-logo cursor-pointer pointer-events-auto transition-transform hover:scale-105 active:scale-95"
           aria-label="Back to Home"
         >
@@ -84,7 +82,7 @@ export const LookbookPage: React.FC<LookbookPageProps> = ({ setCurrentView }) =>
           </div>
 
           <h1
-            className="lookbook-headline mb-16 lg:mb-24"
+            className="lookbook-headline mb-8"
             style={{
               fontFamily: 'Inter, sans-serif',
               fontSize: 'clamp(48px, 8vw, 96px)',
@@ -98,6 +96,39 @@ export const LookbookPage: React.FC<LookbookPageProps> = ({ setCurrentView }) =>
             A curated glimpse into<br />
             <span style={{ fontStyle: 'italic', fontWeight: 300 }}>our latest creations.</span>
           </h1>
+
+          {/* Context intro */}
+          <div className="lookbook-headline mb-16 lg:mb-24 flex flex-col sm:flex-row sm:items-end gap-6 sm:gap-16">
+            <p
+              style={{
+                fontFamily: 'Inter, sans-serif',
+                fontSize: '16px',
+                fontWeight: 300,
+                color: '#655f59',
+                lineHeight: 1.75,
+                maxWidth: '480px',
+              }}
+            >
+              A preview of our design and manufacturing capabilities. Full collections, material specifications, and pricing are available upon request.
+            </p>
+            <a
+              href="mailto:hello@univdiam.com?subject=Lookbook%20Full%20Access%20Request"
+              className="flex-shrink-0 inline-flex items-center gap-3 border border-[#2a2725] text-[#2a2725] px-7 py-4 hover:bg-[#2a2725] hover:text-white transition-colors duration-300"
+              style={{
+                fontFamily: 'Inter, sans-serif',
+                fontSize: '11px',
+                fontWeight: 600,
+                letterSpacing: '0.2em',
+                textTransform: 'uppercase',
+                whiteSpace: 'nowrap',
+              }}
+            >
+              Request Full Access
+              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="square" strokeLinejoin="miter" strokeWidth={1.5} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+              </svg>
+            </a>
+          </div>
 
           {/* Collage Layout */}
           <div className="flex flex-col w-full gap-1 sm:gap-2">

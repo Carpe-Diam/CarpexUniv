@@ -1,50 +1,50 @@
 import { useState } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { X } from 'lucide-react';
 
-interface NavigationProps {
-    currentView: 'home' | 'team' | 'lookbook';
-    setCurrentView: (view: 'home' | 'team' | 'lookbook') => void;
-}
-
-export const Navigation = ({ currentView, setCurrentView }: NavigationProps) => {
+export const Navigation = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const navigate = useNavigate();
+    const location = useLocation();
 
     const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
 
     const handleNav = (destination: string) => {
         setIsMenuOpen(false);
 
-        if (destination === 'team' || destination === 'lookbook') {
-            setCurrentView(destination as 'team' | 'lookbook');
+        if (destination === 'team') {
+            navigate('/team');
             window.scrollTo({ top: 0, behavior: 'instant' });
             return;
         }
 
-        // For all other destinations, we must be on the 'home' view
-        if (currentView !== 'home') {
-            setCurrentView('home');
-            // Give a tiny moment for React to render the home view before scrolling
-            setTimeout(() => performScroll(destination), 50);
+        if (destination === 'lookbook') {
+            navigate('/lookbook');
+            window.scrollTo({ top: 0, behavior: 'instant' });
+            return;
+        }
+
+        if (destination === 'home') {
+            if (location.pathname !== '/') {
+                navigate('/');
+            }
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            return;
+        }
+
+        // services and contact need to scroll on the home page
+        if (location.pathname !== '/') {
+            navigate('/', { state: { scrollTo: destination } });
         } else {
             performScroll(destination);
         }
     };
 
     const performScroll = (destination: string) => {
-        if (destination === 'home') {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        } else if (destination === 'services') {
+        if (destination === 'services') {
             window.scrollTo({ top: window.innerHeight, behavior: 'smooth' });
         } else if (destination === 'contact') {
-            const scrollHeight = Math.max(
-                document.body.scrollHeight,
-                document.documentElement.scrollHeight,
-                document.body.offsetHeight,
-                document.documentElement.offsetHeight,
-                document.body.clientHeight,
-                document.documentElement.clientHeight
-            );
-            window.scrollTo({ top: scrollHeight, behavior: 'smooth' });
+            window.scrollTo({ top: document.documentElement.scrollHeight, behavior: 'smooth' });
         }
     };
 
@@ -64,15 +64,13 @@ export const Navigation = ({ currentView, setCurrentView }: NavigationProps) => 
 
             {/* Menu Backdrop */}
             <div
-                className={`fixed inset-0 bg-[#2a2725]/40 backdrop-blur-sm z-[90] pointer-events-auto transition-all duration-500 ${isMenuOpen ? 'opacity-100 visible' : 'opacity-0 invisible pointer-events-none'
-                    }`}
+                className={`fixed inset-0 bg-[#2a2725]/40 backdrop-blur-sm z-[90] pointer-events-auto transition-all duration-500 ${isMenuOpen ? 'opacity-100 visible' : 'opacity-0 invisible pointer-events-none'}`}
                 onClick={() => setIsMenuOpen(false)}
             />
 
             {/* Right Side Tray */}
             <div
-                className={`absolute top-0 right-0 h-full w-full sm:w-[400px] bg-[#EEEDE9] z-[100] pointer-events-auto shadow-[auto] transform transition-transform duration-500 ease-[cubic-bezier(0.77,0,0.175,1)] flex flex-col pt-32 px-12 sm:px-16 border-l border-[#e2ddd8] ${isMenuOpen ? 'translate-x-0' : 'translate-x-full'
-                    }`}
+                className={`absolute top-0 right-0 h-full w-full sm:w-[400px] bg-[#EEEDE9] z-[100] pointer-events-auto shadow-[auto] transform transition-transform duration-500 ease-[cubic-bezier(0.77,0,0.175,1)] flex flex-col pt-32 px-12 sm:px-16 border-l border-[#e2ddd8] ${isMenuOpen ? 'translate-x-0' : 'translate-x-full'}`}
             >
                 {/* Close Button Inside Tray */}
                 <button
@@ -108,7 +106,6 @@ export const Navigation = ({ currentView, setCurrentView }: NavigationProps) => 
                             }}
                         >
                             <span className="relative z-10 block pr-8">{item.name}</span>
-                            {/* Hover line effect */}
                             <div className="absolute top-1/2 left-0 w-0 h-[1px] bg-[#D4AF37] -translate-y-1/2 transition-all duration-500 group-hover:w-full opacity-0 group-hover:opacity-100 z-0" />
                         </button>
                     ))}
@@ -135,7 +132,7 @@ export const Navigation = ({ currentView, setCurrentView }: NavigationProps) => 
                     </div>
                 </nav>
 
-                <div className="mt-auto pb-12 opacity-80"
+                <div className="mt-auto pb-12"
                     style={{
                         transitionDelay: `400ms`,
                         opacity: isMenuOpen ? 1 : 0,
@@ -144,11 +141,10 @@ export const Navigation = ({ currentView, setCurrentView }: NavigationProps) => 
                     }}
                 >
                     <p className="text-[#8c857d] font-sans text-xs tracking-widest uppercase mb-4">Contact</p>
-                    <a href="mailto:hello@carpediam.in" className="block text-[#2a2725] font-sans text-sm hover:text-[#D4AF37] transition-colors mb-2">hello@carpediam.in</a>
+                    <a href="mailto:hello@univdiam.com" className="block text-[#2a2725] font-sans text-sm hover:text-[#D4AF37] transition-colors mb-2">hello@univdiam.com</a>
                     <a href="tel:+919930900465" className="block text-[#2a2725] font-sans text-sm hover:text-[#D4AF37] transition-colors">+91 99309 00465</a>
                 </div>
             </div>
         </>
     );
 };
-

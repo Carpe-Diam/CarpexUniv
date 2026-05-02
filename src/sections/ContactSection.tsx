@@ -57,18 +57,18 @@ export const ContactSection = () => {
                                     letterSpacing: '-0.02em',
                                 }}
                             >
-                                Initiate a <br className="hidden sm:block" />
+                                Start a <br className="hidden sm:block" />
                                 conversation.
                             </h2>
                             <p className="text-[#655f59] font-sans text-lg font-light max-w-sm leading-relaxed">
-                                Connect with our team to discuss customized supply chain solutions for your jewelry business.
+                                Tell us about what you're looking to create or manufacture. We'll guide you from there.
                             </p>
                         </div>
 
                         {/* Details List */}
                         <div className="space-y-8 border-l border-[#D4AF37]/40 pl-6">
                             {/* Email */}
-                            <a href="mailto:hello@carpediam.in" className="flex items-center gap-6 group">
+                            <a href="mailto:hello@univdiam.com" className="flex items-center gap-6 group">
                                 <Mail className="w-5 h-5 text-[#8c857d] group-hover:text-[#D4AF37] transition-colors stroke-[1.5]" />
                                 <span className="font-sans text-[#2a2725] text-base font-medium tracking-wide group-hover:text-[#D4AF37] transition-colors">
                                     hello@univdiam.com
@@ -88,7 +88,8 @@ export const ContactSection = () => {
                             <div className="flex items-start gap-6 pt-2">
                                 <MapPin className="w-5 h-5 text-[#8c857d] flex-shrink-0 mt-1 stroke-[1.5]" />
                                 <span className="font-sans text-[#655f59] text-sm font-light leading-relaxed max-w-[280px]">
-                                    <strong className="text-[#2a2725] font-medium block mb-1">Carpe Diam Jewels Pvt Ltd.</strong>
+                                    <strong className="text-[#2a2725] font-medium block mb-1">Univ Diam</strong>
+                                    <span className="text-[#8c857d] text-xs block mb-1">A division of Carpe Diam Jewels Pvt Ltd.</span>
                                     802/8th floor. 93 east, <br />
                                     Opp. Nand Bhuvan Industrial Estate,<br />
                                     Above Burger King, Mahakali Caves Road,<br />
@@ -119,6 +120,22 @@ export const ContactSection = () => {
                                 Project Inquiry
                             </h3>
                             <ArrowRight className="w-5 h-5 text-[#D4AF37] stroke-[1]" />
+                        </div>
+
+                        {/* Form guidance */}
+                        <div className="mb-8 p-5 bg-[#F9F7F2] border border-[#e2ddd8]">
+                            <p
+                                className="text-[#655f59] mb-3"
+                                style={{ fontFamily: 'Inter, sans-serif', fontSize: '13px', fontWeight: 300, lineHeight: 1.7 }}
+                            >
+                                Typical inquiries include custom jewelry design, private label manufacturing, and bulk production.
+                            </p>
+                            <p
+                                className="text-[#8c857d]"
+                                style={{ fontFamily: 'Inter, sans-serif', fontSize: '12px', fontWeight: 300, lineHeight: 1.6 }}
+                            >
+                                Not sure what to include? Share your product type, estimated quantity, and timeline — we'll take it from there.
+                            </p>
                         </div>
 
                         <form onSubmit={handleSubmit} className="space-y-8">
@@ -168,20 +185,27 @@ export const ContactSection = () => {
                                 className="w-full py-5 text-white bg-[#2a2725] font-medium tracking-[0.15em] uppercase text-xs hover:bg-[#1f1d1b] transition-colors disabled:opacity-50 mt-4 flex items-center justify-center gap-3"
                                 style={{ fontFamily: 'Inter, sans-serif' }}
                             >
-                                {isSubmitting ? 'Transmitting...' : 'Submit Request'}
+                                {isSubmitting ? 'Sending Request...' : 'Submit Request'}
                                 {!isSubmitting && <ArrowRight className="w-4 h-4" />}
                             </button>
+
+                            <p
+                                className="text-center text-[#8c857d]"
+                                style={{ fontFamily: 'Inter, sans-serif', fontSize: '12px', fontWeight: 300 }}
+                            >
+                                We respond to all inquiries within 24–48 hours.
+                            </p>
 
                             {/* Status Messages */}
                             <div className="h-10">
                                 {isSuccess && (
                                     <div className="p-3 bg-[#EEEDE9] text-[#2a2725] text-center font-sans text-xs uppercase tracking-wider border border-[#e2ddd8]">
-                                        Inquiry received. We will be in touch.
+                                        Inquiry received — we'll be in touch within 48 hours.
                                     </div>
                                 )}
                                 {isError && (
                                     <div className="p-3 bg-red-50 text-red-800 text-center font-sans text-xs uppercase tracking-wider border border-red-100">
-                                        Transmission failed. Please use email.
+                                        Something went wrong. Please email us at hello@univdiam.com
                                     </div>
                                 )}
                             </div>

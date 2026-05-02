@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 import gsap from 'gsap';
 
 const teamMembers = [
@@ -22,11 +23,8 @@ const teamMembers = [
   }
 ];
 
-interface TeamPageProps {
-  setCurrentView: (view: 'home' | 'team') => void;
-}
-
-export const TeamPage: React.FC<TeamPageProps> = ({ setCurrentView }) => {
+export const TeamPage: React.FC = () => {
+  const navigate = useNavigate();
   const sectionRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
@@ -56,7 +54,7 @@ export const TeamPage: React.FC<TeamPageProps> = ({ setCurrentView }) => {
       {/* Fixed Logo Container - Aligned with 1600px bounds */}
       <div className="fixed top-0 left-1/2 -translate-x-1/2 w-full max-w-[1600px] z-[110] pointer-events-none">
         <button 
-          onClick={() => setCurrentView('home')}
+          onClick={() => navigate('/')}
           className="absolute top-8 left-8 md:top-12 md:left-12 team-logo cursor-pointer pointer-events-auto transition-transform hover:scale-105 active:scale-95"
           aria-label="Back to Home"
         >
