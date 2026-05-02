@@ -16,10 +16,10 @@ export const Hero = () => {
             </video>
 
             {/* Gradient overlay — fades in from bottom third of video */}
-            <div className="absolute inset-0 pointer-events-none bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
+            {/* <div className="absolute inset-0 pointer-events-none bg-gradient-to-t from-black/60 via-black/20 to-transparent" /> */}
 
             {/* Text content — anchored to bottom of video */}
-            <div className="absolute inset-0 flex flex-col justify-end pb-12 md:pb-16 lg:pb-20 px-8 md:px-16 lg:px-24 xl:px-32 pointer-events-none">
+            {/* <div className="absolute inset-0 flex flex-col justify-end pb-12 md:pb-16 lg:pb-20 px-8 md:px-16 lg:px-24 xl:px-32 pointer-events-none">
                 <div className="max-w-3xl">
                     <p
                         className="text-white/60 mb-5 pointer-events-auto"
@@ -76,7 +76,7 @@ export const Hero = () => {
                         </svg>
                     </button>
                 </div>
-            </div>
+            </div> */}
         </section>
     );
 };
